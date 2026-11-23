@@ -26,14 +26,14 @@
   <div>
     <div class="eyebrow rise d0"><i></i> Built for Bharat · Hindi · मराठी · English</div>
     <h1 class="rise d1">Got a strange message?<br><em>Ask Kagzi first.</em></h1>
-    <p class="lede rise d2">Paste any SMS, WhatsApp message, bill or notice, or snap a photo. Kagaz Saathi tells you if it is real or a scam, explains it in plain language with voice, and tells you exactly what to do next. If a parent is in danger, a family member is alerted.</p>
+    <p class="lede rise d2">Paste any SMS, WhatsApp message, bill or notice, or snap a photo. Kagaz Saathi tells you if it is real or a scam, explains it in plain language with voice, and tells you exactly what to do next. If it looks dangerous, it writes the alert for your family.</p>
     <div class="hero-actions rise d3"><a class="btn primary lg" href="#try" data-magnet>Check a message →</a><button class="btn lg" id="demo-btn" data-magnet>Open the demo</button></div>
     <div class="hero-trust rise d4"><div><b id="h-acc">–</b><span>accuracy on 150 unseen messages</span></div><div><b>3</b><span>languages with voice</span></div><div><b>1930</b><span>helpline one tap away</span></div></div>
   </div>
   <div class="stage rise d2" aria-hidden="true">
     <div class="fcard spot"><div class="k">New message</div><div class="msg">"Your SBI account will be blocked today. Update KYC at sbi-kyc-update.in"</div><div class="gauge"><i id="g1"></i></div><div class="small" style="margin-top:6px"><span class="pill bad">⚠ Scam · 96% risk</span></div></div>
     <div class="fcard b spot"><div class="k">Explained in Hindi</div><div class="msg" style="font-family:var(--font)">बैंक SMS में लिंक भेजकर खाता बंद नहीं करते। लिंक न खोलें।</div><span class="pill info">🔊 Read aloud</span></div>
-    <div class="fcard c spot"><div class="k">Family loop</div><div class="msg">Neha was alerted: "Maa checked a suspicious message. Please call her."</div><span class="pill ok">✓ Sent to 2 family members</span></div>
+    <div class="fcard c spot"><div class="k">Family loop</div><div class="msg">For Neha: "Maa checked a suspicious message. Please call her."</div><span class="pill ok">✓ Ready to send on WhatsApp</span></div>
     <div id="hero-owl"></div>
   </div>
 </section>
@@ -65,7 +65,7 @@
 </section>
 
 <section class="section" id="family">
-  <div class="sec-head" data-reveal><div class="k">The family loop</div><h2>Nobody faces a scam alone.</h2><p>Scammers say "do not tell anyone". Kagzi does the opposite: with one tap, a trusted family member gets the message, the verdict and what to do.</p></div>
+  <div class="sec-head" data-reveal><div class="k">The family loop</div><h2>Nobody faces a scam alone.</h2><p>Scammers say "do not tell anyone". Kagzi does the opposite: it writes the message, the verdict and what to do, ready to send to someone you trust on WhatsApp.</p></div>
   <div class="tags">
     <div class="tag spot tilt" data-reveal data-delay="1"><b>👵 For parents and grandparents</b><p>Large text, Hindi or Marathi voice, and a single big button. No jargon.</p></div>
     <div class="tag spot tilt" data-reveal data-delay="2"><b>🎓 For students</b><p>Fake internship offers, task jobs, and loan apps get flagged before the deposit is paid.</p></div>
@@ -83,14 +83,14 @@
 </section>
 
 <section class="section" id="proof">
-  <div class="sec-head" data-reveal><div class="k">Honest numbers</div><h2>Tested on messages it never saw.</h2><p>The classifier was trained epoch by epoch on 7,000+ messages, its settings were chosen on a separate set, and it was then scored once on 150 fresh hand-written messages.</p></div>
+  <div class="sec-head" data-reveal><div class="k">Honest numbers</div><h2>Tested on messages it never saw.</h2><p>The classifier was trained epoch by epoch on 7,000+ messages, its settings were chosen on a separate set, and it was then scored on 150 messages it was not trained on.</p></div>
   <div class="grid g4" data-reveal>
     <div class="card spot kpi"><div><div class="k">Accuracy on unseen messages</div><div class="v"><span id="p-acc" data-count="0" data-dec="1" data-suffix="%">–</span></div><div class="f" id="p-n"></div></div></div>
     <div class="card spot kpi"><div><div class="k">Scam vs genuine</div><div class="v"><span id="p-sg" data-count="0" data-dec="1" data-suffix="%">–</span></div><div class="f">verdict-level, same test set</div></div></div>
     <div class="card spot kpi"><div><div class="k">Message types</div><div class="v"><span id="p-cls" data-count="0">–</span></div><div class="f">10 scam, 6 genuine</div></div></div>
     <div class="card spot kpi"><div><div class="k">Needs a server?</div><div class="v">No GPU</div><div class="f">pure Python, runs on AWS Lambda</div></div></div>
   </div>
-  <p class="small mute" style="margin-top:14px" data-reveal>Limits: the test messages were written by the same team that built the model, so real-world accuracy can be lower. Kagzi shows its reasons so you can judge for yourself, and never replaces calling 1930.</p>
+  <p class="small mute" style="margin-top:14px" data-reveal>Limits: the test messages were written during this project, so real-world accuracy will be lower. On a tougher fresh set every scam was flagged, but 4 of 20 real messages were not left alone. Kagzi shows its reasons so you can judge for yourself, and never replaces calling 1930.</p>
 </section>
 
 <section class="section" id="faq">
@@ -99,7 +99,7 @@
     <details data-reveal><summary>Can Kagzi be wrong?</summary><p>Yes. It can miss a new kind of scam or call a real message suspicious. That is why it shows the reasons and always tells you to verify in the official app. If money was lost, call 1930 immediately.</p></details>
     <details data-reveal><summary>Is my message stored?</summary><p>Messages checked on this home page are not saved. Inside your account, checks are saved to your own history so you can review them, and you can delete any of them.</p></details>
     <details data-reveal><summary>Does it read photos?</summary><p>Yes. Upload a photo or screenshot and the text is read for you, on your own device. You can edit the text before checking.</p></details>
-    <details data-reveal><summary>Does the family alert really send an SMS?</summary><p>On the AWS build it is delivered through Amazon SNS and SES. In the local demo it is saved to an outbox so nothing is sent by accident.</p></details>
+    <details data-reveal><summary>Does the family alert really send an SMS?</summary><p>No. Kagzi writes the alert and opens WhatsApp with it ready; you choose the chat and press send. A copy stays in your outbox.</p></details>
     <details data-reveal><summary>Who built this?</summary><p>Team HackBots, for the Campus to Cloud Hackathon sponsored by AWS at Techfest, IIT Bombay.</p></details>
   </div>
 </section>

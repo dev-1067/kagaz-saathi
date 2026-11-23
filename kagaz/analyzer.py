@@ -162,7 +162,7 @@ def _analyze(text, lang="en"):
     links = [(u, judge_link(u)) for u in facts["urls"]]
     sig = {}
     dont = _warns(text)
-    if _has(text, ASK_SECRET) and not dont and (_has(text, REQUEST_VERBS) or _has(text, SECRET_PHRASES)):
+    if _has(text, ASK_SECRET) and not dont and (_has(text, REQUEST_VERBS) or (_has(text, SECRET_PHRASES) and not facts["otp"])):
         sig["asks_secret"] = True
     if PAY_FIRST.search(text) and not dont:
         sig["pay_first"] = True

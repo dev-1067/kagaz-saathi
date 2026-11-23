@@ -1,6 +1,6 @@
 # Hindi and Marathi review sheet (for a native-speaker reviewer)
 
-Everything Kagaz Saathi says in Hindi and Marathi is hand-written (not machine-translated). It has been proofread twice by the developer (an AI-assisted pass over every string, including the landing page and sample titles), not by a native Marathi speaker, and has **not** been verified by a native speaker yet. Please mark each row OK or write a correction. Keep the sentences short and simple: the readers are parents and grandparents.
+Everything Kagaz Saathi says in Hindi and Marathi is fixed text written for this project with AI assistance (nothing is translated at run time). It has been proofread twice with AI assistance and has **not** been verified by a native speaker. Please mark each row OK or write a correction. Keep the sentences short and simple: the readers are parents and grandparents.
 
 Proofreading pass already made: parcel/customs sentences rewritten (Hindi grammar), 'घोटाळा' (usually 'scandal') replaced by 'फसवणूक' in Marathi, 'नियोक्ते' (formal) replaced by 'कंपन्या', 'पानावर' replaced by 'पेजवर', and a few awkward phrases smoothed.
 

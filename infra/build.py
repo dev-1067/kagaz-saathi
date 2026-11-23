@@ -15,7 +15,7 @@ OUT.mkdir()
 shutil.copytree(ROOT / "kagaz", OUT / "kagaz", ignore=shutil.ignore_patterns("__pycache__", "*.pyc"))
 shutil.copytree(ROOT / "web", OUT / "web")
 (OUT / "results").mkdir()
-for f in ("model_report.json", "stress_report.json"):
+for f in ("model_report.json", "stress_report.json", "blind6_report.json"):
     shutil.copy(ROOT / "results" / f, OUT / "results" / f)
 for f in ("lambda_handler.py", "dynamo_store.py"):
     shutil.copy(ROOT / "infra" / f, OUT / f)

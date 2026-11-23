@@ -158,6 +158,8 @@ class H(BaseHTTPRequestHandler):
                 rep = json.loads((ROOT / "results" / "model_report.json").read_text(encoding="utf-8"))
                 sp = ROOT / "results" / "stress_report.json"
                 rep["stress"] = json.loads(sp.read_text(encoding="utf-8")) if sp.exists() else None
+                bp = ROOT / "results" / "blind6_report.json"
+                rep["blind"] = json.loads(bp.read_text(encoding="utf-8")) if bp.exists() else None
                 return self._send(200, rep)
             if p == "/api/learn":
                 lg = q.get("lang") if q.get("lang") in ("en", "hi", "mr") else u["lang"]

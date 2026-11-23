@@ -254,3 +254,23 @@ def test_install_and_share_target_files(server):
             assert r.status == 200 and ctype in r.headers["Content-Type"], path
     with urllib.request.urlopen(server + "/manifest.webmanifest") as r:
         assert json.loads(r.read())["share_target"]["action"] == "/share"
+
+
+def test_safe_sounding_sentences_never_hide_a_scam():
+    rows = [json.loads(l) for n in ("stress", "stress2", "stress3", "stress4", "fresh_test")
+            for l in (ROOT / "model" / "data" / f"{n}.jsonl").read_text(encoding="utf-8").splitlines()]
+    scams = [r["text"] for r in rows if r["label"] == "scam" or r["label"] in C.SCAM]
+    assert len(scams) > 140
+    for extra in ("", " Visit our official website.", " We never ask for your OTP.", " Do not share this OTP with anyone.", " Visit your nearest branch. Never share your PIN."):
+        assert not [x for x in scams if analyze(x + extra)["verdict"] == "genuine"], extra
+
+
+def test_stress_report_matches_live_rules():
+    rep = json.loads((ROOT / "results" / "stress_report.json").read_text(encoding="utf-8"))
+    for name in ("stress", "stress2", "stress3", "stress4"):
+        live = {}
+        for l in (ROOT / "model" / "data" / f"{name}.jsonl").read_text(encoding="utf-8").splitlines():
+            r = json.loads(l)
+            key = f"{'scam' if r['label'] == 'scam' else 'genuine'}_called_{analyze(r['text'])['verdict']}"
+            live[key] = live.get(key, 0) + 1
+        assert all(rep[name][k] == v for k, v in live.items()), (name, live)

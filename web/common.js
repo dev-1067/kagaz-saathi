@@ -42,6 +42,8 @@ const VT = {
   genuine: { en: "Looks genuine", cls: "ok", color: "#12935f", icon: "✓" },
 };
 const when = t => { const d = new Date(t * 1000); return d.toLocaleDateString("en-IN", { day: "numeric", month: "short" }) + ", " + d.toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" }); };
+// WhatsApp opens with the alert already written; the user picks the chat and presses send.
+const waLink = body => "https://wa.me/?text=" + encodeURIComponent(body);
 const LANGS = { en: "English", hi: "हिन्दी", mr: "मराठी" };
 const VOICE = { en: "en-IN", hi: "hi-IN", mr: "mr-IN" };
 

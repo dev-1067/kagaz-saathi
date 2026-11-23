@@ -33,8 +33,7 @@ SCENES = [
      [(None, ("shot", "v07_check_genuine.png", FULL, (1900, 330, 1900), "A real OTP message: looks genuine"))]),
 
     ("s06_family",
-     "Scammers say, do not tell anyone. Kagzi does the opposite. With one tap, a son or daughter gets the message, the verdict, "
-     "and what to do.",
+     "Scammers say, do not tell anyone. Kagzi does the opposite. It writes the alert for your son or daughter, with the verdict and what to do, ready to send on WhatsApp.",
      [(None, ("shot", "v08_family.png", FULL, (1900, 330, 1900), "Family loop: nobody faces a scam alone"))]),
 
     ("s06b_share",
@@ -47,8 +46,8 @@ SCENES = [
       ("hist", ("shot", "v09_history.png", FULL, (300, 100, 3300), "History"))]),
 
     ("s08_accuracy",
-     "Under the hood is a small trained model. It scores {acc} percent on one hundred and fifty messages it never saw. "
-     "{stress} We also tested it on more than a hundred tricky messages, in four rounds, and the accuracy page shows what it gets wrong, because nothing is hidden.",
+     "Under the hood is a small trained model. It scores {acc} percent on one hundred and fifty messages it was not trained on. "
+     "{stress} Then we wrote forty harder messages. It flagged every scam, and was too cautious with four real ones. The accuracy page shows exactly that.",
      [(None, ("shot", "v10_accuracy.png", FULL, (300, 150, 3300), "Model accuracy, trained and tested")),
       ("stress", ("shot", "v11_accuracy2.png", FULL, (300, 150, 3300), "Hard stress tests"))]),
 

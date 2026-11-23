@@ -140,7 +140,7 @@ with sync_playwright() as p:
     page.locator("#smp .chip").nth(0).click()
     expect(page.locator("#alert")).to_be_visible(timeout=10000)
     page.locator("#alert").click()
-    expect(page.locator("#alert")).to_have_text("Alerted ✓", timeout=10000)
+    expect(page.locator("#alert")).to_have_text("Alert ready ✓", timeout=10000)
     page.goto(BASE + "/app#/family")
     expect(page.locator(".hlc", has_text="To Neha")).to_be_visible(timeout=10000)
     page.screenshot(path=str(SHOTS / "03_family.png"))

@@ -1,5 +1,5 @@
 """Fifth message set, written after every rule was frozen at commit efafd7b and scored once at that commit.
-Written by the same AI assistant that helped build the rules, so it is fresh but not independent."""
+Written by the same author as the rules, so it is fresh but not independent."""
 import json, sys
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]

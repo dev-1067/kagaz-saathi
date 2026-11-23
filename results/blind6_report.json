@@ -1,0 +1,56 @@
+{
+ "scam_as_scam": 15,
+ "scam_as_suspicious": 5,
+ "scam_as_genuine": 0,
+ "genuine_as_genuine": 16,
+ "genuine_as_suspicious": 3,
+ "genuine_as_scam": 1,
+ "n": 40,
+ "misses": [
+  [
+   "scam",
+   "suspicious",
+   "This is the electricity board official portal team. Pay Rs 10 test amount on this link so that meter is not cut: bijli-pay.online"
+  ],
+  [
+   "scam",
+   "suspicious",
+   "Your Netflix payment failed. Update card at netflix-billing.club to avoid suspension."
+  ],
+  [
+   "scam",
+   "suspicious",
+   "आपल्या नावाने पार्सलमध्ये ड्रग्ज सापडले आहेत. अटक टाळण्यासाठी 50,000 रुपये पाठवा."
+  ],
+  [
+   "scam",
+   "suspicious",
+   "Your credit card limit is increased. Tell our agent the CVV and expiry to activate."
+  ],
+  [
+   "scam",
+   "suspicious",
+   "Madam I am from the bank's fraud cell. Someone is withdrawing money, move your balance to the secure account I give you and don't discuss with branch staff."
+  ],
+  [
+   "genuine",
+   "scam",
+   "As per RBI rules please update KYC at your branch before 31 Dec. Carry Aadhaar and PAN. No link is needed."
+  ],
+  [
+   "genuine",
+   "suspicious",
+   "आपके खाते में 12,000 रुपये वेतन जमा हुआ है।"
+  ],
+  [
+   "genuine",
+   "suspicious",
+   "उद्या सकाळी १० वाजता सोसायटीची बैठक आहे. सर्वांनी उपस्थित राहावे."
+  ],
+  [
+   "genuine",
+   "suspicious",
+   "Congratulations on completing 5 years with us! Your service award will be given at the townhall."
+  ]
+ ]
+}

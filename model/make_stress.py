@@ -1,4 +1,4 @@
-"""Writes data/stress.jsonl: 40 deliberately tricky hand-written messages (20 genuine that sound scary, 20 scams written
+"""Writes data/stress.jsonl: 40 deliberately tricky messages (20 genuine that sound scary, 20 scams written
 in unusual wording). Frozen before any tuning against it; reported as-is in docs and the accuracy page.
 
     python model/make_stress.py

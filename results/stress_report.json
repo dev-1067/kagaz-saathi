@@ -4,14 +4,24 @@
     "scam_called_scam": 16,
     "scam_called_suspicious": 4,
     "scam_called_genuine": 0,
-    "genuine_called_genuine": 19,
-    "genuine_called_suspicious": 1,
+    "genuine_called_genuine": 17,
+    "genuine_called_suspicious": 3,
     "genuine_called_scam": 0,
     "scam_flagged_rate": 1.0,
     "scam_caught_as_scam_rate": 0.8,
-    "genuine_clean_rate": 0.95,
+    "genuine_clean_rate": 0.85,
     "genuine_false_scam_rate": 0.0,
     "misses": [
+      {
+        "label": "genuine",
+        "verdict": "suspicious",
+        "text": "Your Aadhaar mobile number update request is received. Visit the nearest Aadhaar Seva Kendra with ID proof by 05-Dec."
+      },
+      {
+        "label": "genuine",
+        "verdict": "suspicious",
+        "text": "Dear customer, your SIM KYC re-verification is due. Visit your operator's store with your Aadhaar; it cannot be done over a link."
+      },
       {
         "label": "genuine",
         "verdict": "suspicious",

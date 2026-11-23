@@ -128,7 +128,7 @@ function showResult(box, r, text) {
   $("#say", box).onclick = () => speak(resultText(r), r.lang);
   $("#copy", box).onclick = async () => { try { await navigator.clipboard.writeText(`Kagaz Saathi: ${r.verdict_label} (${r.kind_label}, risk ${r.risk}/100)\n${r.explanation}\n${r.steps.join("\n")}`); toast("Summary copied"); } catch (e) { toast("Could not copy on this browser."); } };
   const rep = $("#rep", box); if (rep) rep.onclick = async () => { await api("/api/check/report", { id: r.id }); window.open("https://sancharsaathi.gov.in", "_blank", "noopener"); toast("Marked as reported. If you lost money, call 1930 now."); rep.disabled = true; rep.textContent = "Reported ✓"; };
-  const al = $("#alert", box); if (al) al.onclick = async () => { al.disabled = true; try { const o = await api("/api/family/alert", { check_id: r.id, member_id: +$("#fam", box).value }); toast(`Alert for ${o.to} saved in your outbox`); al.textContent = "Alerted ✓"; } catch (e) { toast(e.message); al.disabled = false; } };
+  const al = $("#alert", box); if (al) al.onclick = async () => { al.disabled = true; try { const o = await api("/api/family/alert", { check_id: r.id, member_id: +$("#fam", box).value }); toast(`Alert for ${o.to} is ready. Send it on WhatsApp.`); al.textContent = "Alert ready ✓"; al.insertAdjacentHTML("afterend", ` <a class="btn primary" id="alert-wa" target="_blank" rel="noopener" href="${esc(waLink(o.body))}">Send on WhatsApp</a>`); } catch (e) { toast(e.message); al.disabled = false; } };
   FX.bind(box);
 }
 
@@ -162,8 +162,8 @@ async function pageFamily() {
   <div class="grid g2e"><div class="card"><h3>Your circle</h3><div class="sub">${fam.length} of 10</div><div class="hl">${fam.map(f => `<div class="hlc"><div><b>${esc(f.name)}</b> <span class="pill gray">${esc(f.relation)}</span><div class="small mute">${esc(f.contact)}</div></div><button class="icon-btn" data-df="${f.id}">Remove</button></div>`).join("") || '<div class="empty">Nobody added yet.</div>'}</div>
     <h3 style="font-size:15px;margin-top:20px">Add someone</h3><form id="ff" class="grid" style="gap:10px;margin-top:8px" novalidate><label class="f">Name<input id="fn" maxlength="40" placeholder="Neha"></label><label class="f">Relation<input id="fr" maxlength="30" placeholder="Daughter"></label>
       <label class="f">Mobile number or email<input id="fc" placeholder="98765 43210 or neha@example.com"></label><div class="small" id="fe" style="color:var(--bad)"></div><button class="btn primary">Add to circle</button></form></div>
-    <div class="card"><h3>Alert outbox</h3><div class="sub">${state.demo ? "Demo mode: alerts are saved here instead of being sent." : "Alerts that were prepared for your family."}</div>
-      <div class="hl">${box.map(o => `<div class="hlc" style="align-items:flex-start"><div><b>To ${esc(o.member_name)}</b> <span class="small mute">${when(o.created_at)}</span><div class="small" style="white-space:pre-wrap;margin-top:4px">${esc(o.body)}</div></div></div>`).join("") || '<div class="empty">No alerts yet. Check a message and press "Alert family".</div>'}</div></div></div>`;
+    <div class="card"><h3>Alert outbox</h3><div class="sub">${state.demo ? "Each alert is written for you. Press Send on WhatsApp to deliver it." : "Each alert is written for you. Press Send on WhatsApp to deliver it."}</div>
+      <div class="hl">${box.map(o => `<div class="hlc" style="align-items:flex-start"><div><b>To ${esc(o.member_name)}</b> <span class="small mute">${when(o.created_at)}</span><div class="small" style="white-space:pre-wrap;margin-top:4px">${esc(o.body)}</div><a class="btn" style="margin-top:8px" target="_blank" rel="noopener" href="${esc(waLink(o.body))}">Send on WhatsApp</a></div></div>`).join("") || '<div class="empty">No alerts yet. Check a message and press "Alert family".</div>'}</div></div></div>`;
   $$("[data-df]").forEach(b => b.onclick = async () => { await api("/api/family/delete", { id: +b.dataset.df }); toast("Removed"); route(); });
   $("#ff").onsubmit = async e => { e.preventDefault(); $("#fe").textContent = ""; try { await api("/api/family", { name: $("#fn").value, relation: $("#fr").value, contact: $("#fc").value }); toast("Added to your circle"); route(); } catch (err) { $("#fe").textContent = err.message; } };
 }
@@ -183,7 +183,7 @@ async function pageHelp() {
 async function pageAccuracy() {
   const m = await api("/api/model"); const pc = m.per_class; const hist = m.history;
   const names = m.classes;
-  view.innerHTML = `<h1>Model accuracy</h1><p class="lead">The classifier was trained, tuned on a dev set, and scored once on messages it never saw. No numbers are hidden.</p>
+  view.innerHTML = `<h1>Model accuracy</h1><p class="lead">The classifier was trained, tuned on a dev set, and scored on messages it was not trained on. The tougher tests are below.</p>
   <div class="grid g4" style="margin-bottom:14px">
     <div class="card kpi"><div><div class="k">Accuracy · ${m.test_size} unseen messages</div><div class="v">${(100 * m.test_accuracy).toFixed(1)}%</div><div class="f">${names.length}-way classification</div></div></div>
     <div class="card kpi"><div><div class="k">Scam vs genuine</div><div class="v">${(100 * m.test_scam_vs_genuine_accuracy).toFixed(1)}%</div><div class="f">verdict-level</div></div></div>
@@ -192,17 +192,17 @@ async function pageAccuracy() {
   <div class="grid g2"><div class="card"><h3>Training curve</h3><div class="sub">Accuracy by epoch (train vs dev)</div>${curve(hist)}</div>
     <div class="card"><h3>Per type (F1)</h3><div class="sub">Test set</div><div style="display:grid;gap:7px">${names.map(n => `<div><div style="display:flex;justify-content:space-between;font-size:12.5px"><span>${kindName(n)}</span><b>${(100 * pc[n]["f1-score"]).toFixed(0)}%</b></div><div class="bar"><span style="width:${100 * pc[n]["f1-score"]}%"></span></div></div>`).join("")}</div></div></div>
   <div class="card" style="margin-top:14px"><h3>Confusion matrix</h3><div class="sub">Rows = truth, columns = prediction</div><div style="overflow:auto"><table class="cm"><thead><tr><th></th>${names.map(n => `<th title="${n}">${kindName(n).slice(0, 7)}</th>`).join("")}</tr></thead><tbody>${m.confusion.map((row, i) => `<tr><th style="text-align:right">${kindName(names[i]).slice(0, 12)}</th>${row.map((v, j) => `<td style="background:${v ? (i === j ? `rgba(18,147,95,${Math.min(.55, .12 + v / 25)})` : "rgba(214,52,72,.5)") : "transparent"}">${v || ""}</td>`).join("")}</tr>`).join("")}</tbody></table></div></div>
-  ${stressCard(m.stress)}
+  ${stressCard(m.stress, m.blind)}
   <div class="card" style="margin-top:14px"><h3>What it got wrong</h3>${m.errors.length ? m.errors.map(e => `<p class="small"><span class="pill bad">${kindName(e.true)} → ${kindName(e.pred)}</span> ${esc(e.text)}</p>`).join("") : '<p class="mute">Nothing.</p>'}
-    <p class="small mute" style="margin-top:12px"><b>Honest limits.</b> The test messages were hand-written by the same team that built the model, in English, Hinglish and Hindi. Real-world messages are wilder, so expect lower accuracy on new scam styles. That is why every verdict also shows transparent rules and reasons, and Kagzi always tells you to verify in the official app.</p></div>`;
+    <p class="small mute" style="margin-top:12px"><b>Honest limits.</b> The test messages were written during this project, not collected from the public, in English, Hinglish and Hindi. Real-world messages are wilder, so expect lower accuracy on new scam styles. That is why every verdict also shows transparent rules and reasons, and Kagzi always tells you to verify in the official app.</p></div>`;
 }
-function stressCard(st) {
+function stressCard(st, bl) {
   if (!st) return "";
   const row = (name, x, note) => `<tr><td><b>${name}</b><div class="small mute">${note}</div></td><td class="num">${x.n}</td><td class="num">${(100 * x.scam_flagged_rate).toFixed(0)}%</td><td class="num">${(100 * x.scam_caught_as_scam_rate).toFixed(0)}%</td><td class="num">${(100 * x.genuine_clean_rate).toFixed(0)}%</td><td class="num">${(100 * x.genuine_false_scam_rate).toFixed(0)}%</td></tr>`;
   return `<div class="card" style="margin-top:14px"><h3>Hard stress tests</h3><div class="sub">Tricky messages: real ones that sound scary, and scams in unusual wording. Whole pipeline (model + rules).</div>
   <div style="overflow:auto"><table><thead><tr><th>Set</th><th>Msgs</th><th>Scams flagged</th><th>Scams called "scam"</th><th>Genuine left alone</th><th>Genuine called "scam"</th></tr></thead><tbody>
-  ${row("Stress set 1", st.stress, "used to find weaknesses, then fixed (new scam type + hard-negative training data)")}${row("Stress set 2", st.stress2, "written after the fixes, never used to tune")}</tbody></table></div>
-  <p class="small mute" style="margin-top:10px">"Flagged" means suspicious or scam. A real message marked "suspicious" is the cautious error; marking a real one "scam" is the costly one, and it did not happen on either set.</p></div>`;
+  ${row("Stress set 1", st.stress, "used to find weaknesses and fix them")}${row("Stress set 2", st.stress2, "checked after each rule change")}${row("Stress set 3", st.stress3, "used to find weaknesses and fix them")}${row("Stress set 4", st.stress4, "checked after each rule change")}${bl ? row("Fresh set", { n: bl.n, scam_flagged_rate: (bl.scam_as_scam + bl.scam_as_suspicious) / (bl.n / 2), scam_caught_as_scam_rate: bl.scam_as_scam / (bl.n / 2), genuine_clean_rate: bl.genuine_as_genuine / (bl.n / 2), genuine_false_scam_rate: bl.genuine_as_scam / (bl.n / 2) }, "never used to tune anything: the fairest number here") : ""}</tbody></table></div>
+  <p class="small mute" style="margin-top:10px">"Flagged" means suspicious or scam. A real message marked "suspicious" is the cautious error; marking a real one "scam" is the costly one, and it happened once, on the fresh set (a bank asking people to update KYC at the branch).</p></div>`;
 }
 function curve(h) {
   const W = 520, H = 190, pad = 34, x = i => pad + i * (W - pad - 8) / Math.max(1, h.length - 1), lo = Math.min(...h.map(p => Math.min(p.train_acc, p.dev_acc)), .9), y = v => 12 + (1 - (v - lo) / (1 - lo + 1e-9)) * (H - 44);

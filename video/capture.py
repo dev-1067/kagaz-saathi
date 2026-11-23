@@ -66,7 +66,7 @@ with sync_playwright() as p:
     expect(pg.get_by_text("Confusion matrix")).to_be_visible(timeout=10000)
     pg.wait_for_timeout(1500)
     pg.screenshot(path=str(OUT / "v10_accuracy.png"))
-    pg.evaluate("document.querySelector('#view').scrollTo?.(0,0); window.scrollTo(0, 900)")
+    pg.get_by_text("Hard stress tests").evaluate("e => window.scrollTo(0, e.getBoundingClientRect().top + window.scrollY - 110)")
     pg.wait_for_timeout(800)
     pg.screenshot(path=str(OUT / "v11_accuracy2.png"))
     pg2 = b.new_context(viewport={"width": 1600, "height": 900}, device_scale_factor=2.4).new_page()

@@ -1,6 +1,6 @@
 """Plain-language content for every notice type, in English, Hindi and Marathi, plus helplines and official domains.
 
-Written by hand (not machine-translated) and kept short. Have a Hindi/Marathi speaker review before public launch.
+Fixed text written for this project (nothing is translated at run time) and kept short. Not yet reviewed by a native Hindi/Marathi speaker.
 """
 SCAM = {"digital_arrest", "kyc_block", "otp_theft", "prize_lottery", "job_fraud", "parcel_customs", "bill_cutoff", "refund_fraud",
         "investment_loan", "impersonation_advance"}
