@@ -155,129 +155,125 @@ do not tell anyone.
 Kagzi does the opposite.
 
 40
-00:01:23,678 --> 00:01:24,754
-With one tap,
+00:01:23,678 --> 00:01:25,529
+It writes the alert for your son or
 
 41
-00:01:24,806 --> 00:01:26,850
-a son or daughter gets the message,
+00:01:25,529 --> 00:01:26,114
+daughter,
 
 42
-00:01:26,877 --> 00:01:27,658
-the verdict,
+00:01:26,154 --> 00:01:27,904
+with the verdict and what to do,
 
 43
-00:01:27,673 --> 00:01:28,786
-and what to do.
+00:01:27,980 --> 00:01:29,717
+ready to send on WhatsApp.
 
 44
-00:01:30,370 --> 00:01:32,708
+00:01:31,300 --> 00:01:33,638
 Most scams arrive on WhatsApp.
 
 45
-00:01:33,433 --> 00:01:34,631
+00:01:34,363 --> 00:01:35,561
 So on a phone,
 
 46
-00:01:34,720 --> 00:01:36,555
+00:01:35,649 --> 00:01:37,485
 tap Share on any message,
 
 47
-00:01:36,558 --> 00:01:37,585
+00:01:37,488 --> 00:01:38,515
 choose Kagzi,
 
 48
-00:01:37,710 --> 00:01:39,668
+00:01:38,640 --> 00:01:40,598
 and it opens already checked.
 
 49
-00:01:40,394 --> 00:01:41,433
+00:01:41,324 --> 00:01:42,363
 No copying,
 
 50
-00:01:41,447 --> 00:01:42,438
+00:01:42,377 --> 00:01:43,368
 no typing.
 
 51
-00:01:44,010 --> 00:01:46,128
+00:01:44,940 --> 00:01:47,058
 Every check is saved to your account,
 
 52
-00:01:46,253 --> 00:01:48,370
+00:01:47,183 --> 00:01:49,300
 with a dashboard of what was caught,
 
 53
-00:01:48,422 --> 00:01:49,963
+00:01:49,352 --> 00:01:50,893
 a history you can search,
 
 54
-00:01:50,088 --> 00:01:52,172
+00:01:51,018 --> 00:01:53,102
 and a guide to the ten scams people
 
 55
-00:01:52,172 --> 00:01:53,333
+00:01:53,102 --> 00:01:54,263
 fall for most.
 
 56
-00:01:54,910 --> 00:01:57,211
+00:01:55,840 --> 00:01:58,141
 Under the hood is a small trained model.
 
 57
-00:01:57,936 --> 00:02:00,902
+00:01:58,866 --> 00:02:01,832
 It scores 99 point 3 percent on one
 
 58
-00:02:00,902 --> 00:02:03,179
-hundred and fifty messages it never saw.
+00:02:01,832 --> 00:02:04,344
+hundred and fifty messages it was not trained
 
 59
-00:02:03,904 --> 00:02:05,853
-We also tested it on more than a
+00:02:04,344 --> 00:02:04,819
+on.
 
 60
-00:02:05,853 --> 00:02:07,333
-hundred tricky messages,
+00:02:05,545 --> 00:02:07,932
+Then we wrote forty harder messages.
 
 61
-00:02:07,372 --> 00:02:08,497
-in four rounds,
+00:02:08,658 --> 00:02:10,383
+It flagged every scam,
 
 62
-00:02:08,512 --> 00:02:10,963
-and the accuracy page shows what it gets
+00:02:10,447 --> 00:02:13,104
+and was too cautious with four real ones.
 
 63
-00:02:10,963 --> 00:02:11,500
-wrong,
+00:02:13,829 --> 00:02:16,707
+The accuracy page shows exactly that.
 
 64
-00:02:11,539 --> 00:02:13,117
-because nothing is hidden.
-
-65
-00:02:14,720 --> 00:02:16,789
+00:02:18,290 --> 00:02:20,359
 And it is live on AWS.
 
-66
-00:02:17,525 --> 00:02:20,415
+65
+00:02:21,095 --> 00:02:23,985
 One Lambda function behind a public URL,
 
-67
-00:02:20,442 --> 00:02:22,817
+66
+00:02:24,012 --> 00:02:26,387
 DynamoDB for accounts and history,
 
-68
-00:02:22,832 --> 00:02:25,489
+67
+00:02:26,402 --> 00:02:29,058
 and one template that deploys everything,
 
-69
-00:02:25,491 --> 00:02:28,172
+68
+00:02:29,061 --> 00:02:31,742
 tested end to end on the real deployment.
 
-70
-00:02:29,750 --> 00:02:30,912
+69
+00:02:33,320 --> 00:02:34,482
 Kagaz Saathi.
 
-71
-00:02:31,636 --> 00:02:33,178
+70
+00:02:35,206 --> 00:02:36,748
 Ask Kagzi first.
