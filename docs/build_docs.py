@@ -24,7 +24,7 @@ s3, s4 = S["stress3"], S["stress4"]
 
 CSS = """
 @page { size: A4; margin: 15mm 16mm; }
-:root { --ink:#141a33; --body:#2b3150; --indigo:#2b3a8f; --saf:#ff8a4c; --mute:#6c7595; --line:#e1e4f2; }
+:root { --ink:#241f19; --body:#3b352c; --indigo:#1f5f4a; --saf:#e0762a; --mute:#7b7262; --line:#e7dcc8; }
 body { margin:0; font-family:"Segoe UI","Noto Sans Devanagari",Arial,sans-serif; color:var(--body); font-size:10.4pt; line-height:1.48; }
 .head { display:flex; justify-content:space-between; align-items:flex-end; border-bottom:2pt solid var(--indigo); padding-bottom:7pt; margin-bottom:9pt; }
 .k { font-size:8pt; letter-spacing:.1em; text-transform:uppercase; color:var(--saf); font-weight:700; }
