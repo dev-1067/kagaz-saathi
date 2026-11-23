@@ -1,0 +1,59 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: Kagaz Saathi - check any message for scams, explained in Hindi/Marathi/English, with a family alert loop.
+
+Parameters:
+  AlertFromEmail:
+    Type: String
+    Default: ""
+    Description: Optional. An email address verified in Amazon SES; when set, family alerts to email contacts are really sent.
+  EnableTextract:
+    Type: String
+    Default: "1"
+    AllowedValues: ["0", "1"]
+    Description: "1 = read uploaded photos with Amazon Textract."
+
+Globals:
+  Function:
+    Runtime: python3.12
+    Timeout: 20
+    MemorySize: 512
+
+Resources:
+  KagazTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - { AttributeName: pk, AttributeType: S }
+        - { AttributeName: sk, AttributeType: S }
+      KeySchema:
+        - { AttributeName: pk, KeyType: HASH }
+        - { AttributeName: sk, KeyType: RANGE }
+      TimeToLiveSpecification: { AttributeName: ttl, Enabled: true }
+
+  KagazFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ../build/
+      Handler: lambda_handler.handler
+      Description: Kagaz Saathi web app and API (one function behind a Function URL)
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref KagazTable
+          KAGAZ_TEXTRACT: !Ref EnableTextract
+          ALERT_FROM_EMAIL: !Ref AlertFromEmail
+      Policies:
+        - DynamoDBCrudPolicy: { TableName: !Ref KagazTable }
+        - Statement:
+            - { Effect: Allow, Action: [textract:DetectDocumentText], Resource: "*" }
+            - { Effect: Allow, Action: [ses:SendEmail], Resource: "*" }
+      FunctionUrlConfig:
+        AuthType: NONE
+
+Outputs:
+  AppUrl:
+    Description: Open this URL, it is your live prototype.
+    Value: !GetAtt KagazFunctionUrl.FunctionUrl
+  TableName:
+    Value: !Ref KagazTable

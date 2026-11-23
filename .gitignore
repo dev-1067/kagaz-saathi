@@ -1,0 +1,8 @@
+data/
+__pycache__/
+*.pyc
+_ref/
+.pytest_cache/
+results/*.log
+model/data/train.jsonl
+build/

@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kagaz Saathi · Is this message real?</title>
+<meta name="description" content="Check any SMS, WhatsApp message, bill or notice. Kagaz Saathi tells you if it is real, explains it in Hindi, Marathi or English with voice, and alerts your family.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="fx.css"><link rel="stylesheet" href="kagaz.css">
+</head>
+<body class="pub">
+<header class="nav" id="nav">
+  <a class="brand" href="/" id="logo"></a>
+  <nav class="nav-links"><a href="#how">How it works</a><a href="#try">Try it now</a><a href="#family">Family loop</a><a href="#languages">Languages</a><a href="#proof">Accuracy</a><a href="#faq">FAQ</a></nav>
+  <div class="nav-cta"><a class="btn ghost hide-m" href="/signin" id="n-in">Sign in</a><a class="btn primary" href="/signup" id="n-up" data-magnet>Create free account</a>
+    <button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span></button></div>
+</header>
+<div class="mmenu" id="mmenu"><a href="#how">How it works</a><a href="#try">Try it now</a><a href="#family">Family loop</a><a href="#languages">Languages</a><a href="#proof">Accuracy</a><a href="/signin">Sign in</a></div>
+
+<section class="hero">
+  <div>
+    <div class="eyebrow rise d0"><i></i> Built for Bharat · Hindi · मराठी · English</div>
+    <h1 class="rise d1">Got a strange message?<br><em>Ask Kagzi first.</em></h1>
+    <p class="lede rise d2">Paste any SMS, WhatsApp message, bill or notice, or snap a photo. Kagaz Saathi tells you if it is real or a scam, explains it in plain language with voice, and tells you exactly what to do next. If a parent is in danger, a family member is alerted.</p>
+    <div class="hero-actions rise d3"><a class="btn primary lg" href="#try" data-magnet>Check a message →</a><button class="btn lg" id="demo-btn" data-magnet>Open the demo</button></div>
+    <div class="hero-trust rise d4"><div><b id="h-acc">–</b><span>accuracy on 150 unseen messages</span></div><div><b>3</b><span>languages with voice</span></div><div><b>1930</b><span>helpline one tap away</span></div></div>
+  </div>
+  <div class="stage rise d2" aria-hidden="true">
+    <div class="fcard spot"><div class="k">New message</div><div class="msg">"Your SBI account will be blocked today. Update KYC at sbi-kyc-update.in"</div><div class="gauge"><i id="g1"></i></div><div class="small" style="margin-top:6px"><span class="pill bad">⚠ Scam · 96% risk</span></div></div>
+    <div class="fcard b spot"><div class="k">Explained in Hindi</div><div class="msg" style="font-family:var(--font)">बैंक SMS में लिंक भेजकर खाता बंद नहीं करते। लिंक न खोलें।</div><span class="pill info">🔊 Read aloud</span></div>
+    <div class="fcard c spot"><div class="k">Family loop</div><div class="msg">Neha was alerted: "Maa checked a suspicious message. Please call her."</div><span class="pill ok">✓ Sent to 2 family members</span></div>
+    <div id="hero-owl"></div>
+  </div>
+</section>
+
+<div class="marquee" aria-hidden="true"><div class="mtrack">
+  <span>Digital arrest ✦ Fake KYC ✦ OTP theft ✦ Lottery prizes ✦ Task jobs ✦ Parcel customs ✦ Bill cut-off threats ✦ Fake refunds ✦ Loan apps ✦</span>
+  <span>Digital arrest ✦ Fake KYC ✦ OTP theft ✦ Lottery prizes ✦ Task jobs ✦ Parcel customs ✦ Bill cut-off threats ✦ Fake refunds ✦ Loan apps ✦</span></div></div>
+
+<section class="section" id="how">
+  <div class="sec-head" data-reveal><div class="k">How it works</div><h2>Four steps. Under ten seconds.</h2><p>Indians lost over ₹20,000 crore to cyber fraud in 2025. Most scams work because the victim has nobody to ask. Kagzi is that somebody.</p></div>
+  <div class="steps">
+    <div class="step spot tilt" data-reveal data-delay="1"><div class="n">1</div><h3>Share it</h3><p>Paste the text or upload a photo of a letter, bill or screenshot.</p></div>
+    <div class="step spot tilt" data-reveal data-delay="2"><div class="n">2</div><h3>Get a verdict</h3><p>Genuine, suspicious or scam, with every reason listed, so you can see why.</p></div>
+    <div class="step spot tilt" data-reveal data-delay="3"><div class="n">3</div><h3>Understand it</h3><p>A plain explanation in Hindi, Marathi or English, read aloud, plus what to do and by when.</p></div>
+    <div class="step spot tilt" data-reveal data-delay="4"><div class="n">4</div><h3>Act safely</h3><p>One tap to report on 1930 or Chakshu, and alert a son or daughter.</p></div>
+  </div>
+</section>
+
+<section class="section" id="try">
+  <div class="sec-head" data-reveal><div class="k">Try it now</div><h2>No sign-up needed.</h2><p>Pick an example or paste your own. Nothing is saved on this page.</p></div>
+  <div class="tryit" data-reveal>
+    <div class="card"><h3>Paste a message</h3><div class="sub">Works in English, Hindi and Hinglish</div>
+      <div class="chips" id="samples"></div>
+      <div class="input-area"><textarea id="t-text" maxlength="4000" placeholder="Paste an SMS, WhatsApp message or notice here…"></textarea><span class="count" id="t-count">0 / 4000</span></div>
+      <div style="display:flex;gap:10px;align-items:center;margin-top:12px;flex-wrap:wrap"><div class="seg" id="t-lang"><button data-l="en" class="on">English</button><button data-l="hi">हिन्दी</button><button data-l="mr">मराठी</button></div>
+        <button class="btn primary" id="t-go" style="margin-left:auto">Check this message</button></div></div>
+    <div class="card" id="t-out"><div class="empty">The verdict appears here.<br><span class="small">Try the first example above.</span></div></div>
+  </div>
+</section>
+
+<section class="section" id="family">
+  <div class="sec-head" data-reveal><div class="k">The family loop</div><h2>Nobody faces a scam alone.</h2><p>Scammers say "do not tell anyone". Kagzi does the opposite: with one tap, a trusted family member gets the message, the verdict and what to do.</p></div>
+  <div class="tags">
+    <div class="tag spot tilt" data-reveal data-delay="1"><b>👵 For parents and grandparents</b><p>Large text, Hindi or Marathi voice, and a single big button. No jargon.</p></div>
+    <div class="tag spot tilt" data-reveal data-delay="2"><b>🎓 For students</b><p>Fake internship offers, task jobs, and loan apps get flagged before the deposit is paid.</p></div>
+    <div class="tag spot tilt" data-reveal data-delay="3"><b>👨‍👩‍👧 For families</b><p>Add up to 10 relatives. See every check in one history, and who was alerted.</p></div>
+  </div>
+</section>
+
+<section class="section" id="languages">
+  <div class="sec-head" data-reveal><div class="k">Speaks your language</div><h2>Explained the way you talk.</h2></div>
+  <div class="lang-row">
+    <div class="lang spot" data-reveal data-delay="1"><div class="tt">English</div><p>Banks do not block accounts through a link in an SMS. The link leads to a fake page that steals your card or OTP.</p></div>
+    <div class="lang spot" data-reveal data-delay="2"><div class="tt">हिन्दी</div><p>बैंक SMS में लिंक भेजकर खाता बंद नहीं करते। लिंक नकली पेज पर ले जाता है जो आपका कार्ड या OTP चुरा लेता है।</p></div>
+    <div class="lang spot" data-reveal data-delay="3"><div class="tt">मराठी</div><p>बँका SMS मधील लिंकद्वारे खाते बंद करत नाहीत. लिंक बनावट पानावर नेते जे तुमचे कार्ड किंवा OTP चोरते.</p></div>
+  </div>
+</section>
+
+<section class="section" id="proof">
+  <div class="sec-head" data-reveal><div class="k">Honest numbers</div><h2>Tested on messages it never saw.</h2><p>The classifier was trained epoch by epoch on 7,000+ messages, its settings were chosen on a separate set, and it was then scored once on 150 fresh hand-written messages.</p></div>
+  <div class="grid g4" data-reveal>
+    <div class="card spot kpi"><div><div class="k">Accuracy on unseen messages</div><div class="v"><span id="p-acc" data-count="0" data-dec="1" data-suffix="%">–</span></div><div class="f" id="p-n"></div></div></div>
+    <div class="card spot kpi"><div><div class="k">Scam vs genuine</div><div class="v"><span id="p-sg" data-count="0" data-dec="1" data-suffix="%">–</span></div><div class="f">verdict-level, same test set</div></div></div>
+    <div class="card spot kpi"><div><div class="k">Message types</div><div class="v"><span id="p-cls" data-count="0">–</span></div><div class="f">10 scam, 6 genuine</div></div></div>
+    <div class="card spot kpi"><div><div class="k">Needs a server?</div><div class="v">No GPU</div><div class="f">pure Python, runs on AWS Lambda</div></div></div>
+  </div>
+  <p class="small mute" style="margin-top:14px" data-reveal>Limits: the test messages were written by the same team that built the model, so real-world accuracy can be lower. Kagzi shows its reasons so you can judge for yourself, and never replaces calling 1930.</p>
+</section>
+
+<section class="section" id="faq">
+  <div class="sec-head" data-reveal><div class="k">FAQ</div><h2>Good questions.</h2></div>
+  <div style="max-width:820px">
+    <details data-reveal><summary>Can Kagzi be wrong?</summary><p>Yes. It can miss a new kind of scam or call a real message suspicious. That is why it shows the reasons and always tells you to verify in the official app. If money was lost, call 1930 immediately.</p></details>
+    <details data-reveal><summary>Is my message stored?</summary><p>Messages checked on this home page are not saved. Inside your account, checks are saved to your own history so you can review them, and you can delete any of them.</p></details>
+    <details data-reveal><summary>Does it read photos?</summary><p>Yes. Upload a photo or screenshot and the text is read for you (on AWS this uses Amazon Textract). You can edit the text before checking.</p></details>
+    <details data-reveal><summary>Does the family alert really send an SMS?</summary><p>On the AWS build it is delivered through Amazon SNS and SES. In the local demo it is saved to an outbox so nothing is sent by accident.</p></details>
+    <details data-reveal><summary>Who built this?</summary><p>Team HackBots, for the Campus to Cloud Hackathon sponsored by AWS at Techfest, IIT Bombay.</p></details>
+  </div>
+</section>
+
+<section class="band" data-reveal="zoom"><div><h2>Keep your family one message ahead.</h2><p>Free to try. Takes a minute to set up.</p></div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn accent lg" href="/signup" data-magnet>Create free account</a><button class="btn lg" id="demo-btn2" style="background:transparent;color:#fff;border-color:rgba(255,255,255,.4)">Open the demo</button></div></section>
+<footer class="foot"><a class="brand" href="/" id="logo2"></a><span>Team HackBots · Campus to Cloud Hackathon, Techfest IIT Bombay 2026-27</span><span><a href="/signin">Sign in</a></span></footer>
+<div id="toast" class="toast"></div>
+<script src="common.js"></script><script src="fx.js"></script><script src="landing.js"></script>
+</body>
+</html>

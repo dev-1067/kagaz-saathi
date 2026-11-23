@@ -1,0 +1,6 @@
+pytest
+playwright
+scikit-learn
+numpy
+boto3
+moto[dynamodb,ses,textract]

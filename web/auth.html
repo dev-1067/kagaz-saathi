@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kagaz Saathi · Sign in</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="fx.css"><link rel="stylesheet" href="kagaz.css">
+</head>
+<body class="auth">
+<aside class="aside">
+  <a class="brand" href="/" id="logo"></a>
+  <div class="fcard fc1"><div class="k">Message checked</div><div class="msg">"You are under digital arrest…"</div><span class="pill bad">⚠ Scam · risk 97</span></div>
+  <div class="fcard fc2"><div class="k">Family alerted</div><div class="msg">Neha got an alert about Maa's check.</div><span class="pill ok">✓ Sent</span></div>
+  <div id="owl" style="position:absolute;right:30px;bottom:40px"></div>
+  <h2>Every message, double-checked by someone who cares.</h2>
+  <p>Kagzi checks SMS, WhatsApp messages and notices, explains them in Hindi, Marathi or English, and keeps your family in the loop.</p>
+  <ul><li>Reasons for every verdict, not just a score</li><li>Read aloud in your language</li><li>One tap to 1930 and Chakshu</li></ul>
+</aside>
+<main class="formside">
+  <a class="back" href="/">← Home</a>
+  <div class="fbox">
+    <a class="brand" href="/" id="logo2" style="display:none"></a>
+    <div class="tabs" id="tabs"><span class="glider"></span><button data-m="in" id="tab-in">Sign in</button><button data-m="up" id="tab-up">Create account</button></div>
+    <h1 id="title">Welcome back</h1><p class="sub" id="sub">Sign in to your Kagaz Saathi.</p>
+    <div class="ferr" id="ferr" role="alert"></div>
+    <form id="form" novalidate>
+      <div class="field up" id="f-name"><label class="f" for="name">Your name</label><input id="name" autocomplete="name" placeholder="Savitri Devi"><div class="err"></div></div>
+      <div class="field up" id="f-home"><label class="f" for="home">Household name (optional)</label><input id="home" placeholder="Sharma family"><div class="err"></div></div>
+      <div class="field" id="f-email"><label class="f" for="email">Email</label><input id="email" type="email" autocomplete="email" placeholder="you@example.com"><div class="err"></div></div>
+      <div class="field" id="f-password"><label class="f" for="password">Password</label><input id="password" type="password" autocomplete="current-password" placeholder="At least 8 characters"><button type="button" class="peek" id="peek" aria-label="Show password">Show</button>
+        <div class="meter up"><i id="meter"></i></div><div class="small mute up" id="mlabel" style="margin-top:4px">8+ characters with a letter and a number.</div><div class="err"></div></div>
+      <button class="btn primary lg" id="go" type="submit" style="width:100%" data-magnet>Sign in</button>
+    </form>
+    <div class="or">or try a demo</div>
+    <div class="demos"><button data-p="parent">👵 Parent<small>Hindi, big text</small></button><button data-p="student">🎓 Student<small>jobs and loans</small></button><button data-p="family">👨‍👩‍👧 Family<small>shared alerts</small></button></div>
+    <p class="small mute" style="text-align:center;margin-top:18px" id="swap"></p>
+  </div>
+</main>
+<div id="toast" class="toast"></div>
+<script src="common.js"></script><script src="fx.js"></script><script src="auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kagaz Saathi · Dashboard</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/fx.css"><link rel="stylesheet" href="/kagaz.css">
+</head>
+<body class="app">
+<div class="shell">
+  <aside class="side" id="side">
+    <a class="brand" href="/" id="logo"></a>
+    <nav>
+      <div class="group">Home</div>
+      <a href="#/dashboard" data-p="dashboard"><span class="ico" data-i="grid"></span>Dashboard</a>
+      <div class="group">Protect</div>
+      <a href="#/check" data-p="check"><span class="ico" data-i="shield"></span>Check a message</a>
+      <a href="#/history" data-p="history"><span class="ico" data-i="clock"></span>History</a>
+      <a href="#/family" data-p="family"><span class="ico" data-i="users"></span>Family</a>
+      <div class="group">Learn</div>
+      <a href="#/learn" data-p="learn"><span class="ico" data-i="book"></span>Scam guide</a>
+      <a href="#/help" data-p="help"><span class="ico" data-i="phone"></span>Helplines</a>
+      <a href="#/accuracy" data-p="accuracy"><span class="ico" data-i="chart"></span>Model accuracy</a>
+      <div class="group">Account</div>
+      <a href="#/settings" data-p="settings"><span class="ico" data-i="gear"></span>Settings</a>
+    </nav>
+    <div class="tip"><div id="tip-owl"></div><div><b>Kagzi's tip</b>Nobody real asks for your OTP, UPI PIN or a "fee" to give you money.</div></div>
+  </aside>
+  <main>
+    <header class="top">
+      <div style="display:flex;align-items:center;gap:12px"><button class="menu-btn" id="menu-btn" aria-label="Menu">☰</button><div class="crumb"><span id="c-home">My home</span> / <b id="c-page">Dashboard</b></div></div>
+      <div class="tr">
+        <div class="seg" id="lang-seg" title="Language of explanations"><button data-l="en">EN</button><button data-l="hi">हिं</button><button data-l="mr">मरा</button></div>
+        <div class="seg" id="theme-seg"><button data-t="light" title="Light">☀</button><button data-t="dark" title="Dark">☾</button></div>
+        <div class="who-wrap"><button class="who" id="who" aria-haspopup="menu" aria-expanded="false"><div class="av" id="av">··</div><div><div class="who-n" id="who-n">…</div><div class="who-r" id="who-r"></div></div></button>
+          <div class="menu" id="menu" role="menu"><a href="#/settings">Settings</a><a href="#/family">Family</a><a href="/">Home page</a><hr><button id="signout">Sign out</button></div></div>
+      </div>
+    </header>
+    <div id="view" class="view"></div>
+  </main>
+</div>
+<div id="drawer" class="drawer" aria-hidden="true"><div class="dpanel"><button class="x" id="dx" aria-label="Close">×</button><div id="dbody"></div></div></div>
+<div id="toast" class="toast"></div>
+<script src="/common.js"></script><script src="/fx.js"></script><script src="/app.js"></script>
+</body>
+</html>
