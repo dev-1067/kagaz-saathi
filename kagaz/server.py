@@ -43,7 +43,7 @@ SAMPLES = [
      "text": "INR 1,250.00 debited from A/c XX4821 on 18-Nov at Zomato. Avl bal INR 14,320.55. Not you? Call the number on the back of your card."},
     {"id": "job", "title": {"en": "Task job offer", "hi": "टास्क जॉब ऑफर", "mr": "टास्क जॉब ऑफर"},
      "text": "Part time work from home, earn Rs 5,000 daily by liking YouTube videos. Join our Telegram group and pay Rs 500 registration."},
-    {"id": "pension", "title": {"en": "Pension life certificate", "hi": "पेंशन जीवन प्रमाण", "mr": "पेन्शन जीवन प्रमाणपत्र"},
+    {"id": "pension", "title": {"en": "Pension life certificate", "hi": "पेंशन जीवन प्रमाणपत्र", "mr": "पेन्शन जीवन प्रमाणपत्र"},
      "text": "Dear pensioner, please submit your Jeevan Pramaan life certificate by 30-Nov through the bank or post office to continue pension."},
 ]
 SEED = {"parent": [SAMPLES[0]["text"], SAMPLES[1]["text"], SAMPLES[4]["text"], SAMPLES[6]["text"]],
@@ -68,7 +68,7 @@ def alert_text(user, rec, lang):
     snippet = re.sub(r"\s+", " ", rec["text"]).strip()[:140]
     head = {"en": f"{user['name']} checked a message with Kagaz Saathi: {C.VERDICT[rec['verdict']]['en']} ({C.LABELS[rec['kind']]['en']}).",
             "hi": f"{user['name']} ने कागज़ साथी से एक संदेश जांचा: {C.VERDICT[rec['verdict']]['hi']} ({C.LABELS[rec['kind']]['hi']}).",
-            "mr": f"{user['name']} यांनी कागज साथीने एक संदेश तपासला: {C.VERDICT[rec['verdict']]['mr']} ({C.LABELS[rec['kind']]['mr']})."}[lang]
+            "mr": f"{user['name']} यांनी कागज़ साथीने एक संदेश तपासला: {C.VERDICT[rec['verdict']]['mr']} ({C.LABELS[rec['kind']]['mr']})."}[lang]
     tail = {"en": "Please call them, and do not click links or send money. National cyber-fraud helpline: 1930.",
             "hi": "कृपया उन्हें फोन करें। लिंक न खोलें, पैसे न भेजें। साइबर ठगी हेल्पलाइन: 1930.",
             "mr": "कृपया त्यांना फोन करा. लिंक उघडू नका, पैसे पाठवू नका. सायबर फसवणूक हेल्पलाइन: 1930."}[lang]
