@@ -9,9 +9,9 @@ Parameters:
     Description: Optional. An email address verified in Amazon SES; when set, family alerts to email contacts are really sent.
   EnableTextract:
     Type: String
-    Default: "1"
+    Default: "0"
     AllowedValues: ["0", "1"]
-    Description: "1 = read uploaded photos with Amazon Textract."
+    Description: "1 = read uploaded photos with Amazon Textract. Leave 0 on a Free-plan account: Textract is blocked there, and the browser reads the photo instead."
 
 Globals:
   Function:
@@ -46,7 +46,7 @@ Resources:
       Policies:
         - DynamoDBCrudPolicy: { TableName: !Ref KagazTable }
         - Statement:
-            - { Effect: Allow, Action: [textract:DetectDocumentText], Resource: "*" }
+            - { Effect: Allow, Action: [textract:DetectDocumentText], Resource: "*" }   # only used when EnableTextract=1
             - { Effect: Allow, Action: [ses:SendEmail], Resource: "*" }
       FunctionUrlConfig:
         AuthType: NONE

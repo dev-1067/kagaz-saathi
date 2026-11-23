@@ -105,7 +105,7 @@ async function ocr(file) {
     const b64 = await new Promise((res, rej) => { const fr = new FileReader(); fr.onload = () => res(fr.result); fr.onerror = () => rej(new Error("Could not open that file.")); fr.readAsDataURL(file); });
     const sr = await fetch("/api/ocr", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ image: b64 }) });
     if (sr.ok) { const j = await sr.json(); if (j.text) { $("#txt").value = j.text.slice(0, 4000); $("#cnt").textContent = `${$("#txt").value.length} / 4000`; s.textContent = "Text read from the photo (Amazon Textract). Please check it, then press Check."; return; } }
-    else if (sr.status !== 501) { const j = await sr.json().catch(() => ({})); throw new Error(j.error || "Could not read that photo."); }
+    /* 501 (not enabled) or any other server-side failure: read the photo in the browser instead */
     s.innerHTML = `<span class="spin"></span> Loading the text reader…`;
     if (!tess) await new Promise((res, rej) => { const sc = document.createElement("script"); sc.src = "https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js"; sc.onload = res; sc.onerror = () => rej(new Error("The text reader could not be loaded. Check your internet, or paste the text instead.")); document.head.appendChild(sc); });
     tess = true;

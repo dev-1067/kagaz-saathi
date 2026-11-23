@@ -81,10 +81,10 @@ def card(kind):
         d.text((240, 1060), "Ask Kagzi first.", font=font(250, "bold"), fill=MINT)
         d.text((240, 1500), "Scam check, plain-language explanation and family alert, in Hindi, Marathi and English", font=font(76), fill=MUTED)
     elif kind == "aws":
-        d.text((240, 600), "BUILT FOR AWS", font=font(64, "bold"), fill=MINT)
+        d.text((240, 600), "LIVE ON AWS", font=font(64, "bold"), fill=MINT)
         d.text((240, 710), "One function. One table.", font=font(200, "bold"), fill=TEXT)
         rows = [("AWS Lambda + Function URL", "the whole app behind one HTTPS address"), ("Amazon DynamoDB", "accounts, history, family circle, alert outbox"),
-                ("Amazon Textract", "reads photos of letters and bills"), ("Amazon SES", "delivers family alerts by email"), ("AWS SAM", "one template deploys everything")]
+                ("Amazon CloudWatch", "logs and errors"), ("AWS IAM", "a least-privilege role for the function"), ("AWS SAM", "one template deploys everything")]
         for i, (a, b) in enumerate(rows):
             y = 1060 + i * 176
             d.ellipse([244, y + 44, 288, y + 88], fill=MINT)

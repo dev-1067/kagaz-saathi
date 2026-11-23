@@ -49,8 +49,8 @@ SCENES = [
       ("stress", ("shot", "v11_accuracy2.png", FULL, (300, 150, 3300), "Hard stress tests"))]),
 
     ("s09_aws",
-     "It is built to run on AWS. One Lambda function, DynamoDB for accounts and history, Textract to read photos, and S E S for family alerts, "
-     "all deployed from a single template.",
+     "And it is live on AWS. One Lambda function behind a public URL, DynamoDB for accounts and history, and one template that deploys everything, "
+     "tested end to end on the real deployment.",
      [(None, ("card", "aws"))]),
 
     ("s10_outro",

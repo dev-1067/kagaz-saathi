@@ -1,6 +1,6 @@
 """Optional AWS integrations. Everything here is OFF unless its environment variable is set, so the app runs fully offline.
 
-  KAGAZ_TEXTRACT=1        read photos of letters/bills with Amazon Textract (otherwise the browser reads them with Tesseract.js)
+  KAGAZ_TEXTRACT=1        read photos with Amazon Textract (blocked on Free-plan accounts; the browser reads photos with Tesseract.js otherwise)
   ALERT_FROM_EMAIL=...    deliver family alerts to e-mail contacts with Amazon SES (the address must be verified in SES)
 boto3 is imported lazily; it is available by default inside AWS Lambda.
 """

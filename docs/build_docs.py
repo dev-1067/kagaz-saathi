@@ -89,10 +89,10 @@ BUILD = f"""
 <table><tr><th style="width:24%">Service</th><th>What it does in Kagaz Saathi</th><th style="width:26%">Why this one</th></tr>
 <tr><td><b>AWS Lambda + Function URL</b></td><td>Serves the whole app (pages, static files, JSON API) from one function; the same server code runs locally and in Lambda through a small adapter</td><td>No servers to manage, free at demo traffic, one public HTTPS URL</td></tr>
 <tr><td><b>Amazon DynamoDB</b></td><td>One on-demand table for accounts, sessions (with TTL), saved checks, family circle and the alert outbox</td><td>Serverless, scales to zero cost, TTL expires sessions automatically</td></tr>
-<tr><td><b>Amazon Textract</b></td><td>Reads text from photos of letters, bills and screenshots (DetectDocumentText), which the user can edit before checking</td><td>Managed OCR, no model to host</td></tr>
-<tr><td><b>Amazon SES</b> (optional)</td><td>Delivers family alerts to e-mail contacts</td><td>Cheap, managed e-mail</td></tr>
+<tr><td><b>IAM + CloudFormation / SAM</b></td><td>A least-privilege role for the function and one template that creates the table, function and public URL (deployed with one command)</td><td>Repeatable and deletable in one command</td></tr>
+<tr><td><b>Amazon SES</b> (optional, available but not switched on)</td><td>Can deliver family alerts to e-mail contacts once a sender address is verified</td><td>Cheap, managed e-mail</td></tr>
 <tr><td><b>Amazon CloudWatch</b></td><td>Logs and errors for the Lambda function</td><td>Built in</td></tr>
-<tr><td><b>AWS SAM / CloudFormation</b></td><td>One template (infra/template.yaml) creates everything; one command deploys it</td><td>Repeatable, deletable in one command</td></tr></table>
+</table>
 <p>The classifier itself deliberately does <b>not</b> need Bedrock, a GPU or any paid inference: it is a TF-IDF + logistic-regression model exported to plain Python (1.6 MB), so every
 check costs effectively nothing and answers in milliseconds.</p>
 
@@ -103,9 +103,8 @@ check costs effectively nothing and answers in milliseconds.</p>
 <li><b>Testing.</b> 26 automated tests (model, analyzer, accounts, privacy between users, API, DynamoDB store and Lambda handler against a mock of AWS) and a browser test that clicks every page and button in Chromium with zero console errors. The stress tests found real weaknesses (real messages called scams, a missing scam type); we fixed them and re-tested on 20 fresh messages.</li></ul>
 
 <h2>Deployment and cost</h2>
-<p>Deploys with <b>SAM</b> to region ap-south-1 (Mumbai) on the AWS Free plan: Lambda and DynamoDB on-demand fit inside the free allowances at demo traffic; Textract is billed per page and covered by credits;
-a monthly budget alert is part of the setup steps. Package size is 3.6 MB. Steps are in <b>infra/DEPLOY.md</b>.</p>
-<div class="box"><b>Status, stated plainly:</b> the code, template and Lambda adapter are tested locally against a mock of AWS. The live deployment is <span class="todo">to be confirmed once deployed</span>; until then this summary describes the build, not a running stack.</div>
+<p>Deployed with <b>SAM</b> to <b>ap-southeast-2 (Sydney)</b>, the region this Free-plan account is tied to: Lambda and DynamoDB on-demand fit inside the free allowances at demo traffic. Package size is 3.6 MB. Steps are in <b>infra/DEPLOY.md</b>.</p>
+<div class="box"><b>Status, stated plainly:</b> the stack is <b>live</b> and the 10-step browser test (sign-up, sign-in, checks, family alerts, history, demo accounts) passes against it. On this Free-plan account Amazon Textract, Translate and Comprehend are blocked by an organisation policy, so we did not use them: photos are read in the browser (Tesseract.js) and read-aloud uses the browser's voices.</div>
 
 <h2>Key decisions</h2>
 <ul><li><b>Explainable over opaque</b>: users (and jurors) can see why a message was flagged, which matters for trust in a safety tool.</li>

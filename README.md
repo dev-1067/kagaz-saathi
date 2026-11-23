@@ -21,7 +21,7 @@ Open http://localhost:8030 and click **Try the live demo**, or create an account
 | Content | `kagaz/content.py` | Hand-written explanations in English, Hindi, Marathi; helplines; official-domain list |
 | Web app | `web/`, `kagaz/server.py` | Landing page, sign-up/sign-in, dashboard, checker, history, family circle, scam guide, helplines, accuracy page |
 | Storage | `kagaz/store.py`, `infra/dynamo_store.py` | SQLite locally, DynamoDB on AWS (same interface). Salted PBKDF2 passwords, HttpOnly sessions |
-| AWS | `infra/` | Lambda Function URL + DynamoDB + Textract + optional SES, one SAM template. See `infra/DEPLOY.md` |
+| AWS | `infra/` | Lambda Function URL + DynamoDB + CloudWatch, one SAM template (optional SES). **Deployed and tested live.** See `infra/DEPLOY.md` |
 
 ## Results (all reproducible)
 | Test | Result |
@@ -34,8 +34,8 @@ Open http://localhost:8030 and click **Try the live demo**, or create an account
 | Browser test of every page and button (Chromium) | 10 steps, 0 console errors (`python tests/e2e.py`, server running) |
 
 **Honest limits.** The 150 test messages were written by the team that built the model, in the same few languages, so real-world accuracy
-will be lower on new scam styles; the stress sets are the more realistic guide. The AWS stack passes tests against a *mock* of AWS (moto)
-and has **not been deployed to a real AWS account yet**. Hindi and Marathi text is hand-written, not reviewed by a native speaker, and should be before public launch.
+will be lower on new scam styles; the stress sets are the more realistic guide. The AWS stack passes tests against a *mock* of AWS (moto) and the
+10-step browser test passes against the **real deployment** (Lambda + DynamoDB, Sydney); Textract is blocked on Free-plan accounts, so photos are read in the browser. Hindi and Marathi text is hand-written, not reviewed by a native speaker, and should be before public launch.
 A wrong verdict is possible; the app always says to verify in the official app and to call 1930 if money was lost.
 
 ## Reproduce training
