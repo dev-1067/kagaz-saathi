@@ -5,16 +5,16 @@
 @keyframes fx-ink { to { transform: scale(1); opacity: 0; } }
 
 .fx-cursor, .fx-dot { position: fixed; left: 0; top: 0; pointer-events: none; z-index: 9999; opacity: 0; transition: opacity .2s; }
-.fx-cursor { width: 34px; height: 34px; margin: -17px 0 0 -17px; border-radius: 50%; border: 1.5px solid rgba(255, 138, 76, .85);
+.fx-cursor { width: 34px; height: 34px; margin: -17px 0 0 -17px; border-radius: 50%; border: 1.5px solid rgba(224, 118, 42, .85);
   transition: opacity .2s, width .2s, height .2s, margin .2s, background .2s, border-color .2s; mix-blend-mode: normal; }
-.fx-dot { width: 6px; height: 6px; margin: -3px 0 0 -3px; border-radius: 50%; background: #ff8a4c; }
+.fx-dot { width: 6px; height: 6px; margin: -3px 0 0 -3px; border-radius: 50%; background: #e0762a; }
 .fx-cursor.on, .fx-dot.on { opacity: 1; }
-.fx-cursor.hot { width: 54px; height: 54px; margin: -27px 0 0 -27px; background: rgba(255, 138, 76, .12); border-color: rgba(255, 138, 76, 1); }
-.fx-cursor.press { width: 26px; height: 26px; margin: -13px 0 0 -13px; background: rgba(255, 138, 76, .28); }
+.fx-cursor.hot { width: 54px; height: 54px; margin: -27px 0 0 -27px; background: rgba(224, 118, 42, .12); border-color: rgba(224, 118, 42, 1); }
+.fx-cursor.press { width: 26px; height: 26px; margin: -13px 0 0 -13px; background: rgba(224, 118, 42, .28); }
 
 .spot { position: relative; }
 .spot::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0; transition: opacity .25s;
-  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(255, 138, 76, .13), transparent 45%); }
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(224, 118, 42, .13), transparent 45%); }
 .spot:hover::after { opacity: 1; }
 .tilt { transition: transform .25s ease, box-shadow .25s ease; will-change: transform; }
 

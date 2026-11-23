@@ -23,8 +23,8 @@ W, H, FPS = 3840, 2160, 30
 TIMING = json.loads((WORK / "timing.json").read_text(encoding="utf-8"))
 OUT4K = HERE / "Kagaz_Saathi_Demo_4K.mp4"
 
-PINE, PINE2, MINT = (27, 39, 102), (14, 21, 48), (255, 168, 104)
-TEXT, MUTED, CORAL = (244, 245, 252), (170, 178, 220), (255, 99, 110)
+PINE, PINE2, MINT = (23, 56, 47), (16, 36, 30), (240, 179, 94)
+TEXT, MUTED, CORAL = (250, 245, 234), (190, 205, 195), (224, 118, 42)
 F = "C:/Windows/Fonts/"
 LEAD, GAP, TAIL, XF = 0.25, 0.5, 1.8, 0.45   # voice lead-in, gap between scenes, end hold, crossfade
 
@@ -64,7 +64,7 @@ BG = background()
 def card(kind):
     img = BG.copy()
     d = ImageDraw.Draw(img)
-    d.rounded_rectangle([240, 200, 344, 304], radius=28, fill=(255, 138, 76))
+    d.rounded_rectangle([240, 200, 344, 304], radius=28, fill=(224, 118, 42))
     d.text((292, 254), "K", font=font(72, "bold"), fill=(42, 20, 5), anchor="mm")
     d.text((380, 252), "Kagaz Saathi", font=font(70, "bold"), fill=TEXT, anchor="lm")
     if kind == "problem":
@@ -74,7 +74,7 @@ def card(kind):
         for i, r in enumerate(["Your account will be blocked today", "You are under digital arrest", "You have won a prize"]):
             y = 1290 + i * 200
             d.ellipse([244, y + 52, 290, y + 98], fill=CORAL)
-            d.text((350, y), r, font=font(112, "semi"), fill=(210, 216, 242))
+            d.text((350, y), r, font=font(112, "semi"), fill=(216, 228, 220))
     elif kind == "intro":
         d.text((240, 640), "CAMPUS TO CLOUD HACKATHON  ·  TEAM HACKBOTS", font=font(64, "bold"), fill=MINT)
         d.text((240, 760), "Is this message real?", font=font(250, "bold"), fill=TEXT)

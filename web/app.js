@@ -42,13 +42,13 @@ function bars14(per) {
     <text x="${g + i * (bw + g) + bw / 2}" y="152" text-anchor="middle" font-size="10" fill="var(--mute)">${new Date(days[i]).getDate()}</text>`; }).join("")}</svg>`;
 }
 function donut(s) {
-  const parts = [["scam", s.scams, "#d63448"], ["suspicious", s.suspicious, "#ff8a4c"], ["genuine", s.genuine, "#12935f"]]; const tot = parts.reduce((a, p) => a + p[1], 0) || 1;
+  const parts = [["scam", s.scams, "#d63448"], ["suspicious", s.suspicious, "#e0762a"], ["genuine", s.genuine, "#12935f"]]; const tot = parts.reduce((a, p) => a + p[1], 0) || 1;
   let acc = 0; const R = 52, C = 2 * Math.PI * R;
   const arcs = parts.map(([n, v, c]) => { const len = v / tot * C; const o = `<circle r="${R}" cx="70" cy="70" fill="none" stroke="${c}" stroke-width="20" stroke-dasharray="${len} ${C - len}" stroke-dashoffset="${-acc}" transform="rotate(-90 70 70)"/>`; acc += len; return o; }).join("");
   return `<div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap"><svg viewBox="0 0 140 140" width="140" role="img" aria-label="Verdict split"><circle r="52" cx="70" cy="70" fill="none" stroke="var(--gray-bg)" stroke-width="20"/>${arcs}<text x="70" y="68" text-anchor="middle" font-size="24" font-weight="800" fill="var(--ink)">${s.checks}</text><text x="70" y="86" text-anchor="middle" font-size="11" fill="var(--mute)">checks</text></svg>
   <div style="display:grid;gap:8px;font-size:14px">${parts.map(([n, v, c]) => `<div><i style="display:inline-block;width:10px;height:10px;border-radius:3px;background:${c};margin-right:8px"></i>${n === "scam" ? "Scams" : n === "suspicious" ? "Suspicious" : "Genuine"} <b>${v}</b></div>`).join("")}</div></div>`;
 }
-const kpi = (k, v, f, color, icon) => `<div class="card kpi"><div class="ic" style="background:${color}22;color:${color}">${icon}</div><div><div class="k">${k}</div><div class="v"><span data-count="${v}">${v}</span></div><div class="f">${f}</div></div></div>`;
+const kpi = (k, v, f, color, icon) => `<div class="card kpi" style="border-left:5px solid ${color}"><div><div class="k">${k}</div><div class="v"><span data-count="${v}">${v}</span></div><div class="f">${f}</div></div></div>`;
 const vpill = v => `<span class="pill ${VT[v].cls}">${VT[v].icon} ${VT[v].en}</span>`;
 const kindName = k => ({ digital_arrest: "Digital arrest", kyc_block: "Fake KYC", otp_theft: "OTP theft", prize_lottery: "Prize / lottery", job_fraud: "Fake job", parcel_customs: "Parcel / customs", bill_cutoff: "Bill cut-off", refund_fraud: "Fake refund", investment_loan: "Investment / loan", impersonation_advance: "Urgent-money / impersonation", bank_alert: "Bank alert", otp_notice: "OTP message", bill_reminder: "Bill reminder", govt_notice: "Govt notice", delivery_update: "Delivery", general: "Personal" }[k] || k);
 
@@ -61,9 +61,9 @@ async function pageDashboard() {
   const maxK = Math.max(1, ...s.kinds.map(k => k.n));
   view.innerHTML = `
   <section class="greet"><div><h2>${greet}, ${esc(first)}.</h2><p>${esc(msg)}</p><div style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn accent" href="#/check">Check a message</a><a class="btn" style="background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.25)" href="#/family">Family circle</a><a class="btn" style="background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.25)" href="#/learn">Scam guide</a></div></div>
-    <div style="display:flex;align-items:center;gap:18px"><div class="gstats"><div class="gchip"><div class="k">Checked</div><div class="v">${s.checks}</div></div><div class="gchip"><div class="k">Scams stopped</div><div class="v">${s.scams}</div></div></div><div>${mascot(104)}</div></div></section>
+    <div style="display:flex;align-items:center;gap:18px"><div>${mascot(104)}</div></div></section>
   <div class="grid g4" style="margin-bottom:14px">
-    ${kpi("Messages checked", s.checks, "all time", "#4a3fb0", "🔍")}${kpi("Scams caught", s.scams, "verdict: very likely scam", "#d63448", "⚠")}
+    ${kpi("Messages checked", s.checks, "all time", "#2f7a5f", "🔍")}${kpi("Scams caught", s.scams, "verdict: very likely scam", "#d63448", "⚠")}
     ${kpi("Suspicious", s.suspicious, "needs a second look", "#b86a00", "?")}${kpi("Family alerts", s.alerts, `${s.family} ${s.family === 1 ? "person" : "people"} in your circle`, "#12935f", "♥")}</div>
   <div class="grid g2" style="margin-bottom:14px">
     <div class="card"><h3>Checks in the last 14 days</h3><div class="sub">Each bar is a day</div>${bars14(s.per_day)}</div>

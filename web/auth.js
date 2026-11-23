@@ -22,7 +22,7 @@ $$(".field input").forEach(i => i.addEventListener("input", () => { const f = i.
 $("#password").addEventListener("input", e => {
   if (mode !== "up") return; const p = e.target.value;
   const s = (p.length >= 8) + (p.length >= 12) + (/[a-z]/.test(p) && /[A-Z]/.test(p)) + /\d/.test(p) + /[^A-Za-z0-9]/.test(p);
-  $("#meter").style.width = (s / 5 * 100) + "%"; $("#meter").style.background = s <= 1 ? "#d63448" : s <= 3 ? "#ff8a4c" : "#12935f";
+  $("#meter").style.width = (s / 5 * 100) + "%"; $("#meter").style.background = s <= 1 ? "#d63448" : s <= 3 ? "#e0762a" : "#12935f";
   $("#mlabel").textContent = p ? ["Too weak", "Weak", "Okay", "Good", "Strong", "Very strong"][s] : "8+ characters with a letter and a number.";
 });
 $("#peek").onclick = () => { const p = $("#password"), s = p.type === "password"; p.type = s ? "text" : "password"; $("#peek").textContent = s ? "Hide" : "Show"; };

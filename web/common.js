@@ -9,21 +9,21 @@ const inr = n => "₹" + Math.round(n).toLocaleString("en-IN");
 function mascot(size = 120, mood = "calm") {
   const eye = mood === "alert" ? 7 : 6;
   return `<svg class="mascot float" width="${size}" height="${size}" viewBox="0 0 120 120" role="img" aria-label="Kagzi the owl">
-    <defs><linearGradient id="kb${size}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6c63ff"/><stop offset="1" stop-color="#2b3a8f"/></linearGradient></defs>
-    <path d="M24 34 L34 14 L50 28 Z M96 34 L86 14 L70 28 Z" fill="#2b3a8f"/>
+    <defs><linearGradient id="kb${size}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3f8f72"/><stop offset="1" stop-color="#1f5f4a"/></linearGradient></defs>
+    <path d="M24 34 L34 14 L50 28 Z M96 34 L86 14 L70 28 Z" fill="#1f5f4a"/>
     <ellipse cx="60" cy="68" rx="42" ry="44" fill="url(#kb${size})"/>
     <ellipse cx="60" cy="80" rx="26" ry="28" fill="#fdf3e3"/>
     <path d="M44 66 q5 -3 10 0 M66 66 q5 -3 10 0" stroke="#e8d6bd" stroke-width="2" fill="none" stroke-linecap="round" opacity=".7"/>
     <circle cx="44" cy="52" r="15" fill="#fff"/><circle cx="76" cy="52" r="15" fill="#fff"/>
-    <g class="blink"><circle cx="46" cy="53" r="${eye}" fill="#141a33"/><circle cx="74" cy="53" r="${eye}" fill="#141a33"/>
+    <g class="blink"><circle cx="46" cy="53" r="${eye}" fill="#241f19"/><circle cx="74" cy="53" r="${eye}" fill="#241f19"/>
     <circle cx="48" cy="50" r="2.2" fill="#fff"/><circle cx="76" cy="50" r="2.2" fill="#fff"/></g>
-    <path d="M54 62 L66 62 L60 73 Z" fill="#ff8a4c"/>
-    <path d="M30 78 q-12 6 -6 24 q10 -6 12 -14 Z M90 78 q12 6 6 24 q-10 -6 -12 -14 Z" fill="#2b3a8f"/>
-    <rect x="46" y="86" width="28" height="22" rx="3" fill="#fff" stroke="#c9cfee"/><path d="M51 92 h18 M51 97 h18 M51 102 h11" stroke="#8c95c9" stroke-width="2" stroke-linecap="round"/>
-    <circle cx="68" cy="102" r="4.2" fill="#ff8a4c"/>
-    <path d="M48 112 l-4 6 M72 112 l4 6" stroke="#ff8a4c" stroke-width="4" stroke-linecap="round"/></svg>`;
+    <path d="M54 62 L66 62 L60 73 Z" fill="#e0762a"/>
+    <path d="M30 78 q-12 6 -6 24 q10 -6 12 -14 Z M90 78 q12 6 6 24 q-10 -6 -12 -14 Z" fill="#1f5f4a"/>
+    <rect x="46" y="86" width="28" height="22" rx="3" fill="#fff" stroke="#d9cdb8"/><path d="M51 92 h18 M51 97 h18 M51 102 h11" stroke="#a39880" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="68" cy="102" r="4.2" fill="#e0762a"/>
+    <path d="M48 112 l-4 6 M72 112 l4 6" stroke="#e0762a" stroke-width="4" stroke-linecap="round"/></svg>`;
 }
-const LOGO = `<svg width="34" height="34" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="18" fill="#1b2766"/><path d="M14 22 L22 10 L32 18 L42 10 L50 22 Q50 46 32 54 Q14 46 14 22Z" fill="#ff8a4c"/><circle cx="25" cy="29" r="5.5" fill="#fff"/><circle cx="39" cy="29" r="5.5" fill="#fff"/><circle cx="26" cy="30" r="2.6" fill="#141a33"/><circle cx="38" cy="30" r="2.6" fill="#141a33"/><path d="M29 37 h6 l-3 5z" fill="#1b2766"/></svg>`;
+const LOGO = `<svg width="34" height="34" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="18" fill="#17382f"/><path d="M14 22 L22 10 L32 18 L42 10 L50 22 Q50 46 32 54 Q14 46 14 22Z" fill="#e0762a"/><circle cx="25" cy="29" r="5.5" fill="#fff"/><circle cx="39" cy="29" r="5.5" fill="#fff"/><circle cx="26" cy="30" r="2.6" fill="#241f19"/><circle cx="38" cy="30" r="2.6" fill="#241f19"/><path d="M29 37 h6 l-3 5z" fill="#17382f"/></svg>`;
 
 function toast(msg) {
   const t = $("#toast"); if (!t) return;

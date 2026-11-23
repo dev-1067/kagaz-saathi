@@ -242,7 +242,7 @@ def test_rate_limits_survive_in_the_database(tmp_path):
 
 
 def test_public_endpoint_is_rate_limited_and_body_capped(server):
-    codes = [call(server, "/api/public/analyze", {"text": "Your KYC is blocked, click bit.ly/x"})[0] for _ in range(25)]
+    codes = [call(server, "/api/public/analyze", {"text": "Your KYC is blocked, click bit.ly/x"})[0] for _ in range(60)]
     assert 429 in codes and codes[0] == 200
     big = call(server, "/api/auth/login", {"email": "a@b.co", "password": "x" * 100_000})
     assert big[0] in (400, 429)                                    # oversize body is cut off, never processed

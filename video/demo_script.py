@@ -37,6 +37,10 @@ SCENES = [
      "and what to do.",
      [(None, ("shot", "v08_family.png", FULL, (1900, 330, 1900), "Family loop: nobody faces a scam alone"))]),
 
+    ("s06b_share",
+     "Most scams arrive on WhatsApp. So on a phone, tap Share on any message, choose Kagzi, and it opens already checked. No copying, no typing.",
+     [(None, ("shot", "v12_share.png", FULL, (200, 120, 3300), "Share any WhatsApp message to Kagzi"))]),
+
     ("s07_dashboard",
      "Every check is saved to your account, with a dashboard of what was caught, {hist} a history you can search, and a guide to the ten scams people fall for most.",
      [(None, ("shot", "v04_dashboard.png", FULL, (300, 100, 3300), "Dashboard and history")),
@@ -44,7 +48,7 @@ SCENES = [
 
     ("s08_accuracy",
      "Under the hood is a small trained model. It scores {acc} percent on one hundred and fifty messages it never saw. "
-     "{stress} We also tested it on tricky messages, and the accuracy page shows what it gets wrong, because nothing is hidden.",
+     "{stress} We also tested it on more than a hundred tricky messages, in four rounds, and the accuracy page shows what it gets wrong, because nothing is hidden.",
      [(None, ("shot", "v10_accuracy.png", FULL, (300, 150, 3300), "Model accuracy, trained and tested")),
       ("stress", ("shot", "v11_accuracy2.png", FULL, (300, 150, 3300), "Hard stress tests"))]),
 

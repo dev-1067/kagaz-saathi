@@ -38,12 +38,15 @@ fetch("/api/samples").then(r => r.json()).then(list => {
   $("#samples").innerHTML = list.map((s, i) => `<button class="chip" data-i="${i}">${esc(s.title.en)}</button>`).join("");
   $$("#samples .chip").forEach(b => b.onclick = () => { $("#t-text").value = samples[+b.dataset.i].text; $("#t-count").textContent = `${$("#t-text").value.length} / 4000`; check(); });
 });
+let seq = 0;
 async function check() {
+  const mine = ++seq;
   const text = $("#t-text").value.trim();
   if (!text) { toast("Paste a message or pick an example first."); $("#t-text").focus(); return; }
   const btn = $("#t-go"); btn.disabled = true; const l = btn.innerHTML; btn.innerHTML = `<span class="spin"></span> Checking…`;
   try {
     const r = await api("/api/public/analyze", { text, lang }, { noRedirect: true });
+    if (mine !== seq) return;          // a newer check was started; ignore this older answer
     $("#t-out").innerHTML = resultHtml(r, { actions: `<div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap"><button class="btn" id="t-say">🔊 Read aloud</button><a class="btn primary" href="/signup">Save and alert family</a></div>` });
     $("#t-say").onclick = () => speak(resultText(r), lang);
     FX.bind($("#t-out"));

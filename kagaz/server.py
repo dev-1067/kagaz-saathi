@@ -192,14 +192,14 @@ class H(BaseHTTPRequestHandler):
                 return self._send(401, {"error": "Please sign in first."})
             u = self._user()
             if p in ("/api/auth/login", "/api/auth/signup"):
-                if not (self._limit("auth", ip, 10, 60) and self._limit("authday", ip, 60, 86400)
-                        and (p == "/api/auth/login" or self._limit("signup", ip, 8, 3600))):
+                if not (self._limit("auth", ip, 20, 60) and self._limit("authday", ip, 400, 86400)
+                        and (p == "/api/auth/login" or self._limit("signup", ip, 40, 3600))):
                     return self._send(429, {"error": "Too many attempts. Please wait a while and try again."})
                 uid = (DB.create_user(b.get("name"), b.get("email"), str(b.get("password") or ""), b.get("home"), b.get("lang") or "en")
                        if p == "/api/auth/signup" else DB.verify(b.get("email"), str(b.get("password") or "")))
                 return self._login(uid)
             if p == "/api/auth/demo":
-                if not self._limit("demo", ip, 30, 3600):
+                if not self._limit("demo", ip, 200, 3600):
                     return self._send(429, {"error": "Too many demo sessions from this network. Please wait a while."})
                 persona = b.get("persona") if b.get("persona") in DEMOS else "parent"
                 uid = DB.demo_user(persona)
@@ -209,7 +209,7 @@ class H(BaseHTTPRequestHandler):
                 DB.end_session(self._token())
                 return self._send(200, {"ok": True}, extra={"Set-Cookie": f"{COOKIE}=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0{self._secure()}"})
             if p == "/api/public/analyze":
-                if not (self._limit("pub", ip, 20, 60) and self._limit("pubday", ip, 400, 86400)):
+                if not (self._limit("pub", ip, 40, 60) and self._limit("pubday", ip, 3000, 86400)):
                     return self._send(429, {"error": "Too many checks from this network. Please wait a while and try again."})
                 return self._send(200, analyze(str(b.get("text", "")), b.get("lang") or "en"))
             if p == "/api/analyze":
