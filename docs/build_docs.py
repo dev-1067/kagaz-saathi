@@ -20,6 +20,7 @@ url_html = f'<a href="{URL}">{URL}</a>' if URL else '<span class="todo">to be ad
 alias_html = ALIAS if ALIAS else '<span class="todo">to be added</span>'
 acc = f"{100 * M['test_accuracy']:.1f}%"
 s2 = S["stress2"]
+s3, s4 = S["stress3"], S["stress4"]
 
 CSS = """
 @page { size: A4; margin: 15mm 16mm; }
@@ -67,6 +68,7 @@ and what to do. History, a scam guide and a family circle keep everything in one
 <table><tr><th>What we measured</th><th>Result</th></tr>
 <tr><td>Classifier on {M['test_size']} unseen hand-written messages (never used for training or tuning)</td><td><b>{acc}</b> ({round(M['test_accuracy'] * M['test_size'])}/{M['test_size']}); scam-vs-genuine {100 * M['test_scam_vs_genuine_accuracy']:.1f}%</td></tr>
 <tr><td>{s2['n']} extra tricky messages written after the first round of fixes (real messages that sound scary, scams in unusual wording)</td><td>{100 * s2['scam_flagged_rate']:.0f}% of scams flagged ({100 * s2['scam_caught_as_scam_rate']:.0f}% as outright scams, the rest as "suspicious"); {100 * s2['genuine_false_scam_rate']:.0f}% of real messages called a scam</td></tr>
+<tr><td>{s3['n'] + s4['n']} more tricky messages in two further rounds ({s4['n']} fully blind, written after the final fixes): new scam styles and scary-sounding real notices</td><td>{100 * min(s3['scam_flagged_rate'], s4['scam_flagged_rate']):.0f}% of scams flagged, none called genuine; {100 * s3['genuine_false_scam_rate']:.0f}% of real messages called a scam; about {100 * (s3['genuine_clean_rate'] + s4['genuine_clean_rate']) / 2:.0f}% of real messages left alone, the rest marked "suspicious"</td></tr>
 <tr><td>Automated tests</td><td>26 unit/API/AWS-mock tests and a 10-step browser test of every page and button, all passing, zero console errors</td></tr></table>
 <p>Every scam stopped is money kept, and the first hour after a fraud matters most, which is why the app puts 1930 and a family alert one tap away. <b>We have not yet run a pilot with real users</b>, so we make no claim about people helped; a small pilot with family and
 classmates is planned before Demo Day and its results will replace this sentence.</p>
@@ -100,7 +102,7 @@ check costs effectively nothing and answers in milliseconds.</p>
 <ul><li><b>Model.</b> 16 message types (10 scam, 6 genuine; the impersonation scam type was added after stress testing). Trained on ~8,000 template-generated messages in English, Hinglish and Devanagari; settings (epoch, regularisation) chosen on a separate hand-written dev set; scored once on {M['test_size']} unseen hand-written messages: <b>{acc}</b>.</li>
 <li><b>Analyzer.</b> Model probability plus transparent rules (asks for OTP/PIN/CVV, fee first, threat, secrecy, remote-access app, shortened or look-alike links, personal phone numbers). Every verdict lists the exact signals behind it.</li>
 <li><b>Web app.</b> Landing page, sign-up/sign-in (salted PBKDF2 passwords, HttpOnly sessions), dashboard with charts, checker with read-aloud, history, family circle, scam guide, helplines, and a model-accuracy page. Plain HTML/CSS/JS, no build step.</li>
-<li><b>Testing.</b> 26 automated tests (model, analyzer, accounts, privacy between users, API, DynamoDB store and Lambda handler against a mock of AWS) and a browser test that clicks every page and button in Chromium with zero console errors. The stress tests found real weaknesses (real messages called scams, a missing scam type); we fixed them and re-tested on 20 fresh messages.</li></ul>
+<li><b>Testing.</b> 31 automated tests (model, analyzer, accounts, privacy between users, API, DynamoDB store and Lambda handler against a mock of AWS) and a browser test that clicks every page and button in Chromium with zero console errors. The stress tests found real weaknesses (real messages called scams, a missing scam type); we fixed them and re-tested on fresh messages in three more rounds. Public endpoints are rate-limited per network and per account (counted in the database), request size is capped, and a share-to-Kagzi target lets a WhatsApp message be sent straight in.</li></ul>
 
 <h2>Deployment and cost</h2>
 <p>Deployed with <b>SAM</b> to <b>ap-southeast-2 (Sydney)</b>, the region this Free-plan account is tied to: Lambda and DynamoDB on-demand fit inside the free allowances at demo traffic. Package size is 3.6 MB. Steps are in <b>infra/DEPLOY.md</b>.</p>

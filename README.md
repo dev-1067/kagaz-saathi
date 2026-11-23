@@ -30,13 +30,14 @@ Open http://localhost:8030 and click **Try the live demo**, or create an account
 | Scam vs genuine on the same messages | 99.3% |
 | Hard stress set 1 (40 tricky messages), full pipeline | 100% of scams flagged, 0 real messages called "scam" (used to find weaknesses, then fixed) |
 | Hard stress set 2 (20 new tricky messages, written after the fixes) | 100% of scams flagged (50% called "scam", 50% "suspicious"), 0 real messages called "scam", 60% of real ones left alone, 40% "suspicious" |
-| Unit + API + AWS-mock tests | 26 pass (`python -m pytest tests --ignore=tests/e2e.py`) |
-| Browser test of every page and button (Chromium) | 10 steps, 0 console errors (`python tests/e2e.py`, server running) |
+| Stress sets 3 and 4 (54 more tricky messages, set 4 fully blind) | 100% of scams flagged, none called genuine, 0 real messages called "scam"; about 92% of real ones left alone, the rest "suspicious" |
+| Unit + API + AWS-mock tests | 31 pass (`python -m pytest tests --ignore=tests/e2e.py`) |
+| Browser test of every page and button (Chromium) | 11 steps, 0 console errors (`python tests/e2e.py`, server running) |
 
 **Honest limits.** The 150 test messages were written by the team that built the model, in the same few languages, so real-world accuracy
 will be lower on new scam styles; the stress sets are the more realistic guide. The AWS stack passes tests against a *mock* of AWS (moto) and the
-10-step browser test passes against the **real deployment** (Lambda + DynamoDB, Sydney); Textract is blocked on Free-plan accounts, so photos are read in the browser. Hindi and Marathi text is hand-written, not reviewed by a native speaker, and should be before public launch.
-A wrong verdict is possible; the app always says to verify in the official app and to call 1930 if money was lost.
+11-step browser test passes against the **real deployment** (Lambda + DynamoDB, Sydney); Textract is blocked on Free-plan accounts, so photos are read in the browser. Hindi and Marathi text is hand-written, not reviewed by a native speaker, and should be before public launch.
+Abuse protection: per-network and per-account rate limits stored in the database (SQLite / DynamoDB), 30 KB request cap. Share target: install the site to the phone home screen and share a WhatsApp message to it. A wrong verdict is possible; the app always says to verify in the official app and to call 1930 if money was lost.
 
 ## Reproduce training
 ```powershell

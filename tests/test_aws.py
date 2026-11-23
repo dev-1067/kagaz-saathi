@@ -133,3 +133,8 @@ def test_ses_alert_and_textract_switches(monkeypatch):
     for bad in ("not-an-image", base64.b64encode(b"hello world").decode(), None):
         with pytest.raises(ValueError):
             aws.decode_image(bad)
+
+
+def test_dynamo_rate_limit_counter(store):
+    assert [store.hit("ip1", 2, 60) for _ in range(3)] == [True, True, False]
+    assert store.hit("ip2", 2, 60)

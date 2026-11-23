@@ -51,3 +51,16 @@ async function check() {
   finally { btn.disabled = false; btn.innerHTML = l; }
 }
 $("#t-go").onclick = check;
+
+// Share target: "Share -> Kagaz Saathi" from WhatsApp or SMS lands here with the message already filled in and checked.
+if ("serviceWorker" in navigator) navigator.serviceWorker.register("/sw.js").catch(() => { });
+(() => {
+  const q = new URLSearchParams(location.search);
+  const shared = [q.get("title"), q.get("text"), q.get("url")].filter(Boolean).join(" ").trim().slice(0, 4000);
+  if (!shared || location.pathname !== "/share") return;
+  $("#t-text").value = shared;
+  $("#t-count").textContent = `${shared.length} / 4000`;
+  history.replaceState(null, "", "/");
+  $("#try").scrollIntoView();
+  check();
+})();

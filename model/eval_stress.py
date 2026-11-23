@@ -30,7 +30,7 @@ def run(name):
             "genuine_false_scam_rate": round(c["genuine_called_scam"] / n_g, 3), "misses": miss}
 
 
-out = {"stress": run("stress"), "stress2": run("stress2")}
+out = {"stress": run("stress"), "stress2": run("stress2"), "stress3": run("stress3"), "stress4": run("stress4")}
 (ROOT / "results" / "stress_report.json").write_text(json.dumps(out, indent=2, ensure_ascii=False), encoding="utf-8")
 for k, v in out.items():
     print(k, {x: v[x] for x in v if x != "misses"})

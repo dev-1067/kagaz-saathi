@@ -35,6 +35,12 @@ with sync_playwright() as p:
     email = f"e2e{int(time.time())}@example.com"
     pw = "Shop2026safe"
 
+    # ---------------- WhatsApp "Share -> Kagzi" target
+    page.goto(BASE + "/share?text=" + "Dear customer your SBI account will be blocked today. Update KYC now at sbi-kyc-update.in and enter your card details.".replace(" ", "%20"))
+    expect(page.locator("#t-out .vtitle")).to_contain_text("scam", ignore_case=True, timeout=15000)
+    assert page.evaluate("location.pathname") == "/"
+    ok("shared message opens Kagzi already checked (share target)")
+
     # ---------------- landing page
     page.goto(BASE + "/")
     expect(page.locator(".hero h1")).to_contain_text("Ask Kagzi first")

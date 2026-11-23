@@ -1,0 +1,127 @@
+{
+  "stress": {
+    "n": 40,
+    "scam_called_scam": 16,
+    "scam_called_suspicious": 4,
+    "scam_called_genuine": 0,
+    "genuine_called_genuine": 18,
+    "genuine_called_suspicious": 2,
+    "genuine_called_scam": 0,
+    "scam_flagged_rate": 1.0,
+    "scam_caught_as_scam_rate": 0.8,
+    "genuine_clean_rate": 0.9,
+    "genuine_false_scam_rate": 0.0,
+    "misses": [
+      {
+        "label": "genuine",
+        "verdict": "suspicious",
+        "text": "Your Aadhaar mobile number update request is received. Visit the nearest Aadhaar Seva Kendra with ID proof by 05-Dec."
+      },
+      {
+        "label": "genuine",
+        "verdict": "suspicious",
+        "text": "Your IRCTC ticket PNR 8412345678 is waitlisted. If not confirmed, the refund will be credited automatically within 7 days."
+      }
+    ]
+  },
+  "stress2": {
+    "n": 20,
+    "scam_called_scam": 5,
+    "scam_called_suspicious": 5,
+    "scam_called_genuine": 0,
+    "genuine_called_genuine": 6,
+    "genuine_called_suspicious": 4,
+    "genuine_called_scam": 0,
+    "scam_flagged_rate": 1.0,
+    "scam_caught_as_scam_rate": 0.5,
+    "genuine_clean_rate": 0.6,
+    "genuine_false_scam_rate": 0.0,
+    "misses": [
+      {
+        "label": "genuine",
+        "verdict": "suspicious",
+        "text": "Alert: login to your account from a new device. If this was not you, change your password in the official app right away."
+      },
+      {
+        "label": "genuine",
+        "verdict": "suspicious",
+        "text": "The court hearing for case no. 2210 is on 14-Dec at 10:30 am. Please carry the original summons."
+      },
+      {
+        "label": "genuine",
+        "verdict": "suspicious",
+        "text": "Your PAN card application was received. It will be dispatched in 15 days. Track on the NSDL website."
+      },
+      {
+        "label": "genuine",
+        "verdict": "suspicious",
+        "text": "Your phone insurance claim has been approved and a repair appointment is booked for Saturday."
+      }
+    ]
+  },
+  "stress3": {
+    "n": 30,
+    "scam_called_scam": 15,
+    "scam_called_suspicious": 1,
+    "scam_called_genuine": 0,
+    "genuine_called_genuine": 10,
+    "genuine_called_suspicious": 4,
+    "genuine_called_scam": 0,
+    "scam_flagged_rate": 1.0,
+    "scam_caught_as_scam_rate": 0.938,
+    "genuine_clean_rate": 0.714,
+    "genuine_false_scam_rate": 0.0,
+    "misses": [
+      {
+        "label": "genuine",
+        "verdict": "suspicious",
+        "text": "Your Airtel number will be barred on 05-Dec as your KYC is incomplete. Visit an Airtel store with your Aadhaar. KYC cannot be completed over a link or call."
+      },
+      {
+        "label": "genuine",
+        "verdict": "suspicious",
+        "text": "Your hospital appointment with Dr. Mehta is confirmed for Tuesday 10 am. Please bring your reports and insurance card."
+      },
+      {
+        "label": "genuine",
+        "verdict": "suspicious",
+        "text": "Your Swiggy account password was changed. If this was not you, reset it from the app or call Swiggy support from the app."
+      },
+      {
+        "label": "genuine",
+        "verdict": "suspicious",
+        "text": "Dear member, your gym membership ends on 30-Nov. Renew at the front desk to continue."
+      }
+    ]
+  },
+  "stress4": {
+    "n": 24,
+    "scam_called_scam": 11,
+    "scam_called_suspicious": 1,
+    "scam_called_genuine": 0,
+    "genuine_called_genuine": 9,
+    "genuine_called_suspicious": 3,
+    "genuine_called_scam": 0,
+    "scam_flagged_rate": 1.0,
+    "scam_caught_as_scam_rate": 0.917,
+    "genuine_clean_rate": 0.75,
+    "genuine_false_scam_rate": 0.0,
+    "misses": [
+      {
+        "label": "genuine",
+        "verdict": "suspicious",
+        "text": "Your Kotak account statement for October is ready. Download it from the official app. We never ask for your PIN or OTP."
+      },
+      {
+        "label": "genuine",
+        "verdict": "suspicious",
+        "text": "We have received your rent payment of Rs 12,000 for November. Thank you, Sharma Properties."
+      },
+      {
+        "label": "genuine",
+        "verdict": "suspicious",
+        "text": "Hi Sir, your bike service is complete. Total Rs 2,150. Please collect it before 7 pm."
+      }
+    ]
+  }
+}

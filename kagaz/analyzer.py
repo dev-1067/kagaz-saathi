@@ -51,6 +51,13 @@ TOO_GOOD = ("won", "winner", "lottery", "lucky draw", "congratulations", "prize"
             "guaranteed", "double your money", "sure profit", "risk free", "free recharge", "badhai", "बधाई", "लॉटरी", "इनाम", "रिफंड", "मुनाफा", "earn rs", "earn ")
 
 
+REQUEST_VERBS = ("share", "send", "tell", "give", "enter", "read out", "provide", "submit", "forward", "confirm", "verify", "type ", "reply", "bata", "batao",
+                 "bhej", "de do", "dijiye", "बताइए", "बताओ", "बताएं", "भेजें", "भेजिए", "दीजिए", "डालें", "दर्ज", "शेयर", "update your", "upload")
+SECRET_PHRASES = ("the code", "code you", "code we", "code that", "code just", "code sent", "the otp", "your otp", "your pin", "your cvv")
+PAY_FIRST = re.compile(r"(?i)\b(upi|pay|send|transfer)\b[^.\n]{0,40}\bfirst\b|\bfirst\b[^.\n]{0,40}\b(upi|pay|send|transfer)\b|\bin advance\b|\badvance (payment|amount)\b|\b(need|require)s?\b[^.\n]{0,30}(rs\.?|inr|₹)\s?[\d,]+[^.\n]{0,20}\b(upi|more)\b")
+OFFICIAL_CHANNEL = re.compile(r"(?i)(official (app|website|portal|store|helpline)|visit (the |your |a )?(nearest )?[a-z ]{0,20}(store|branch|office|centre|center|seva kendra)|cannot be (done|completed) (over|through|by) (a )?(link|call|phone)|never ask)")
+
+
 MONEY_ASK = re.compile(r"(?i)\b(send|sent|transfer|pay|deposit|advance|bhej\s?do|bhejo|bhejiye|bhej\s?dijiye)\b|जमा|भेजें|भेज\s?दो|भेजिए")
 
 
@@ -117,8 +124,10 @@ def analyze(text, lang="en"):
     links = [(u, judge_link(u)) for u in facts["urls"]]
     sig = {}
     dont = _has(text, DONT_SHARE)
-    if _has(text, ASK_SECRET) and not dont:
+    if _has(text, ASK_SECRET) and not dont and (_has(text, REQUEST_VERBS) or _has(text, SECRET_PHRASES)):
         sig["asks_secret"] = True
+    if PAY_FIRST.search(text) and not dont:
+        sig["pay_first"] = True
     if _has(text, ASK_MONEY) and (top in C.SCAM or facts["amounts"]) and not (top in ("bank_alert", "bill_reminder", "govt_notice") and not links):
         sig["asks_money"] = top in C.SCAM or p_scam > 0.3
     if _has(text, URGENCY) and (top in C.SCAM or p_scam > 0.3):
@@ -138,6 +147,9 @@ def analyze(text, lang="en"):
     if _has(text, TOO_GOOD) and top in ("prize_lottery", "refund_fraud", "investment_loan", "job_fraud"):
         sig["too_good"] = True
     good = []
+    if OFFICIAL_CHANNEL.search(text) and not (sig.get("asks_secret") or sig.get("pay_first") or sig.get("short_link") or sig.get("fake_domain")
+                                              or sig.get("remote_app") or sig.get("secrecy")):
+        good.append("official_channel")
     if dont:
         good.append("no_share")
     if any(k == "official" for _, k in links) and not sig.get("fake_domain"):
@@ -146,15 +158,18 @@ def analyze(text, lang="en"):
 
     # --- score: model probability + transparent rule weights
     weights = {"asks_secret": 0.45, "asks_money": 0.25, "urgency": 0.12, "threat": 0.18, "secrecy": 0.30, "remote_app": 0.35, "short_link": 0.25,
-               "fake_domain": 0.40, "personal_number": 0.12, "too_good": 0.15}
+               "fake_domain": 0.40, "personal_number": 0.12, "too_good": 0.15, "pay_first": 0.40}
     rule = min(1.0, sum(weights[k] for k in sig))
     score = max(p_scam, min(1.0, 0.55 * p_scam + 0.75 * rule)) if sig else p_scam * 0.9
     hard = bool(sig.get("asks_secret") and top not in ("otp_notice", "bank_alert")) or bool(sig.get("fake_domain") and sig.get("urgency")) \
         or bool(sig.get("secrecy") and (sig.get("threat") or sig.get("asks_money"))) or bool(sig.get("remote_app") and top in C.SCAM)
-    if top in C.SCAM and probs[top] >= 0.6:
+    safe_channel = "official_channel" in good
+    if top in C.SCAM and probs[top] >= 0.6 and not (safe_channel and set(sig) <= {"threat", "urgency"}):
         verdict = "scam"
     elif hard or score >= 0.75:
         verdict = "scam"
+    elif (not sig or (safe_channel and set(sig) <= {"threat", "urgency"} and p_scam < 0.8)) and not links and not facts["phones"] and p_scam < 0.8             and (not sig or p_scam < 0.8) and (p_scam < 0.62 or safe_channel):
+        verdict = "genuine"          # nothing in it asks for anything, links anywhere or pressures: leave a plain message alone
     elif score >= 0.35 or sig.get("fake_domain") or sig.get("short_link"):
         verdict = "suspicious"
     else:

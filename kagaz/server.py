@@ -27,7 +27,6 @@ ROOT = Path(__file__).resolve().parents[1]
 WEB = ROOT / "web"
 COOKIE = "kagaz_session"
 DB = Store()
-FAILS, PUB = {}, {}
 PUBLIC = {"/api/auth/signup", "/api/auth/login", "/api/auth/demo", "/api/auth/logout", "/api/auth/me", "/api/public/analyze", "/api/public/stats",
           "/api/samples", "/api/model"}
 
@@ -96,7 +95,7 @@ class H(BaseHTTPRequestHandler):
 
     def _body(self):
         try:
-            return json.loads(self.rfile.read(min(int(self.headers.get("Content-Length") or 0), 200_000)) or b"{}")
+            return json.loads(self.rfile.read(min(int(self.headers.get("Content-Length") or 0), 30_000)) or b"{}")
         except (json.JSONDecodeError, ValueError):
             return {}
 
@@ -126,13 +125,11 @@ class H(BaseHTTPRequestHandler):
     def _page(self, name):
         self._send(200, (WEB / name).read_bytes(), "text/html")
 
-    def _limit(self, bucket, key, n, per):
-        now = time.time()
-        bucket[key] = [t for t in bucket.get(key, []) if now - t < per]
-        if len(bucket[key]) >= n:
-            return False
-        bucket[key].append(now)
-        return True
+    def _limit(self, kind, key, n, per):
+        try:
+            return DB.hit(f"{kind}#{key}", n, per)
+        except Exception:  # never block real users because the counter failed
+            return True
 
     # ---- GET
     def do_GET(self):
@@ -140,7 +137,7 @@ class H(BaseHTTPRequestHandler):
         q = {k: v[0] for k, v in parse_qs(url.query).items()}
         p = url.path
         try:
-            if p in ("/", "/index.html"):
+            if p in ("/", "/index.html", "/share"):
                 return self._page("landing.html")
             if p in ("/signin", "/signup", "/login"):
                 return self._redirect("/app") if self._user() else self._page("auth.html")
@@ -180,7 +177,7 @@ class H(BaseHTTPRequestHandler):
                 return self._send(200, DB.outbox(u["id"]))
             f = (WEB / p.lstrip("/")).resolve()
             if WEB.resolve() in f.parents and f.is_file() and f.suffix != ".html":
-                return self._send(200, f.read_bytes(), mimetypes.guess_type(f.name)[0] or "application/octet-stream")
+                return self._send(200, f.read_bytes(), "application/manifest+json" if f.suffix == ".webmanifest" else mimetypes.guess_type(f.name)[0] or "application/octet-stream")
             if p.startswith("/api/"):
                 return self._send(404, {"error": "unknown endpoint"})
             self._send(404, (WEB / "404.html").read_bytes(), "text/html")
@@ -195,12 +192,15 @@ class H(BaseHTTPRequestHandler):
                 return self._send(401, {"error": "Please sign in first."})
             u = self._user()
             if p in ("/api/auth/login", "/api/auth/signup"):
-                if not self._limit(FAILS, ip, 10, 60):
-                    return self._send(429, {"error": "Too many attempts. Please wait a minute and try again."})
+                if not (self._limit("auth", ip, 10, 60) and self._limit("authday", ip, 60, 86400)
+                        and (p == "/api/auth/login" or self._limit("signup", ip, 8, 3600))):
+                    return self._send(429, {"error": "Too many attempts. Please wait a while and try again."})
                 uid = (DB.create_user(b.get("name"), b.get("email"), str(b.get("password") or ""), b.get("home"), b.get("lang") or "en")
                        if p == "/api/auth/signup" else DB.verify(b.get("email"), str(b.get("password") or "")))
                 return self._login(uid)
             if p == "/api/auth/demo":
+                if not self._limit("demo", ip, 30, 3600):
+                    return self._send(429, {"error": "Too many demo sessions from this network. Please wait a while."})
                 persona = b.get("persona") if b.get("persona") in DEMOS else "parent"
                 uid = DB.demo_user(persona)
                 seed_demo(uid, persona)
@@ -209,10 +209,12 @@ class H(BaseHTTPRequestHandler):
                 DB.end_session(self._token())
                 return self._send(200, {"ok": True}, extra={"Set-Cookie": f"{COOKIE}=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0{self._secure()}"})
             if p == "/api/public/analyze":
-                if not self._limit(PUB, ip, 30, 60):
-                    return self._send(429, {"error": "Too many checks. Please wait a minute."})
+                if not (self._limit("pub", ip, 20, 60) and self._limit("pubday", ip, 400, 86400)):
+                    return self._send(429, {"error": "Too many checks from this network. Please wait a while and try again."})
                 return self._send(200, analyze(str(b.get("text", "")), b.get("lang") or "en"))
             if p == "/api/analyze":
+                if not (self._limit("chk", u["id"], 30, 60) and self._limit("chkday", u["id"], 500, 86400)):
+                    return self._send(429, {"error": "You have checked a lot of messages. Please wait a little and try again."})
                 text = str(b.get("text", ""))
                 res = analyze(text, b.get("lang") or u["lang"])
                 res["id"] = DB.save_check(u["id"], text.strip()[:4000], res)

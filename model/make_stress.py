@@ -77,6 +77,73 @@ SCAM2 = [
     "Complaint registered against your number in the cyber cell. Press 1 now to speak with the officer or your SIM will be blocked.",
 ]
 
+
+# Third stress set: 30 new messages, written and frozen BEFORE the second round of fixes (hard negatives, new scam styles, rules).
+GENUINE3 = [
+    "Your Airtel number will be barred on 05-Dec as your KYC is incomplete. Visit an Airtel store with your Aadhaar. KYC cannot be completed over a link or call.",
+    "IRCTC: your ticket PNR 6123456789 has been cancelled as per your request. Refund of Rs 1,120 will be credited to your original payment source in 4-5 days.",
+    "Your EPF passbook shows a new contribution of Rs 3,850 for October. Log in at the official EPFO member portal to view it.",
+    "Dear parent, the PTA meeting is on 29-Nov at 11 am in the school hall. Kindly attend.",
+    "Your hospital appointment with Dr. Mehta is confirmed for Tuesday 10 am. Please bring your reports and insurance card.",
+    "Your car insurance renews on 12-Dec. Premium Rs 14,300. Pay in the insurer's official app or at any branch; ignore if already paid.",
+    "Your electricity meter reading for November is 5,412 units. Bill of Rs 2,260 will be generated on 01-Dec.",
+    "Your Amazon Pay UPI transaction of Rs 249 to Jio Recharge was successful. If you did not do this, contact your bank at once.",
+    "Reminder: your driving licence expires on 31-Dec. Renew it on the official Parivahan portal before that date.",
+    "Your Swiggy account password was changed. If this was not you, reset it from the app or call Swiggy support from the app.",
+    "SBI: Your debit card ending 3392 will expire next month. A new card has been dispatched to your registered address.",
+    "Dear member, your gym membership ends on 30-Nov. Renew at the front desk to continue.",
+    "GST portal: your notice DRC-01 is available under View Notices. Reply within 15 days. Never share your login credentials with anyone.",
+    "Your scholarship amount of Rs 12,000 has been credited to your Aadhaar-linked bank account.",
+]
+SCAM3 = [
+    "Hello sir, I am calling for the electricity subsidy. To get Rs 2,000 monthly, scan this QR code and enter your UPI PIN to confirm your account.",
+    "E-challan of Rs 1,500 pending for your vehicle. Pay within 2 hours at echallan-parivahan.top or your licence will be suspended.",
+    "Your Google Pay account is under review. Share the screen with our executive using this app to avoid permanent closure.",
+    "Dear user, your Aadhaar is locked for suspicious activity. Call 90XXXXXX11 and read the code you receive to unlock it.",
+    "Donate for flood victims today and win a free gift. Transfer any amount to this personal UPI id, receipt will follow on WhatsApp.",
+    "We found a virus on your phone. Install the antivirus APK from this link right now or all your photos will be deleted.",
+    "Bhai mera account freeze ho gaya hai, tum apna UPI PIN bhej do, main kuch der me wapas kar dunga, bahut urgent hai.",
+    "Congratulations, your number is selected for a free 5G sim. Pay Rs 99 delivery on this link and enter your card number.",
+    "Your parcel has an unpaid duty. Our courier agent will visit; pay Rs 1,800 to him by UPI first or the parcel is returned.",
+    "Customer care alert: to cancel your wrong online order of Rs 18,000, tell us the OTP and the card CVV right now.",
+    "I am an officer with the Income Tax Department. A case is filed against you; settle it today by gift cards worth Rs 40,000 or face arrest.",
+    "Work from home as a parcel packer, Rs 800 per hour. Pay Rs 1,200 training kit fee to our manager on WhatsApp and start tomorrow.",
+    "Your bank says KYC expired. Use our faster link to reverify: sbi-kyc-fast.in. Do it in 30 minutes, otherwise your balance will be frozen.",
+    "You are eligible for a government laptop scheme. Register with Aadhaar, PAN and bank PIN at this link before midnight.",
+    "Your cousin lost his wallet in Dubai and cannot call you. He asked me to ask you to send Rs 20,000 to this account; do not tell the family.",
+    "Hi, this is your delivery partner. I am outside but need Rs 50 more by UPI first, then I will give your parcel.",
+]
+
+# Fourth stress set: 24 new messages, written and frozen before the second round of fixes, so it can measure them fairly.
+GENUINE4 = [
+    "Your Kotak account statement for October is ready. Download it from the official app. We never ask for your PIN or OTP.",
+    "Dear customer, your gas cylinder refill has been delivered. If you did not receive it, call the number on your gas card.",
+    "Your Aadhaar update request URN 1234-5678 has been approved. Download the updated Aadhaar from the official UIDAI website.",
+    "Your PhonePe payment of Rs 560 to Metro Pharmacy was successful. UPI Ref 48291033.",
+    "Your semester exam fee of Rs 1,350 is due on 05-Dec. Pay on the college portal. A late fee applies after that date.",
+    "Your Zomato order has been cancelled by the restaurant. Rs 340 will be refunded to your original payment method within 3 days.",
+    "We have received your rent payment of Rs 12,000 for November. Thank you, Sharma Properties.",
+    "Dear sir, your pension for November has been credited to your account XX7745. Ref no 221178.",
+    "Your flight 6E 204 to Pune on 02-Dec is delayed by 40 minutes. New departure 18:40. Sorry for the inconvenience.",
+    "Your application for the PM Awas subsidy has been verified. You will be contacted by the bank for the next step.",
+    "Your Wi-Fi router will be replaced on 30-Nov between 2 and 5 pm. A technician from the company will visit; please keep an adult at home.",
+    "Hi Sir, your bike service is complete. Total Rs 2,150. Please collect it before 7 pm.",
+]
+SCAM4 = [
+    "Dear customer your electricity bill will not be updated, so your power will be cut tonight. To update, call our officer on 96XXXXXX20 at once.",
+    "Sir your Aadhaar will be deactivated within 24 hours. Click here and enter your Aadhaar number, mobile and the OTP to stop deactivation.",
+    "Hello, I am from Amazon customer support. Your account was hacked. Please install QuickSupport so that I can secure your bank account.",
+    "You have won Rs 8 lakh in the Reliance Jio lucky draw. To release the prize send Rs 3,000 as GST to this account today.",
+    "Earn Rs 3,000 daily by watching ads. Join this Telegram channel and pay Rs 700 for the starter kit to begin.",
+    "Your son has been arrested for a road accident and the police need Rs 60,000 to settle it right now. Do not call his number.",
+    "Your PF withdrawal of Rs 1.5 lakh is approved. Pay the Rs 4,500 processing fee to our agent first and the money comes in minutes.",
+    "Final notice from the Supreme Court: your SIM was used in a fraud. Join the video call with the judge today or a warrant is issued.",
+    "Get a personal loan of Rs 2 lakh in 10 minutes without any documents. Pay Rs 2,000 insurance and download this loan APK.",
+    "This is the bank's security desk. Your card was used abroad. Share the code we just sent so we can stop the transaction.",
+    "Free gold coin for every customer today. Pay Rs 150 courier charge by UPI on this number and share your address.",
+    "Your FASTag is blocked. Recharge now through this link: fastag-recharge-help.xyz and enter your card details to unblock.",
+]
+
 if __name__ == "__main__":
     out = Path(__file__).resolve().parent / "data" / "stress.jsonl"
     rows = [{"text": t, "label": "genuine"} for t in GENUINE] + [{"text": t, "label": "scam"} for t in SCAM]
@@ -84,3 +151,9 @@ if __name__ == "__main__":
     print("wrote", out, len(rows))
     rows2 = [{"text": t, "label": "genuine"} for t in GENUINE2] + [{"text": t, "label": "scam"} for t in SCAM2]
     (out.parent / "stress2.jsonl").write_text("".join(json.dumps(r, ensure_ascii=False) + chr(10) for r in rows2), encoding="utf-8")
+    rows3 = [{"text": t, "label": "genuine"} for t in GENUINE3] + [{"text": t, "label": "scam"} for t in SCAM3]
+    (out.parent / "stress3.jsonl").write_text("".join(json.dumps(r, ensure_ascii=False) + chr(10) for r in rows3), encoding="utf-8")
+    print("wrote stress2.jsonl and stress3.jsonl", len(rows3))
+    rows4 = [{"text": t, "label": "genuine"} for t in GENUINE4] + [{"text": t, "label": "scam"} for t in SCAM4]
+    (out.parent / "stress4.jsonl").write_text("".join(json.dumps(r, ensure_ascii=False) + chr(10) for r in rows4), encoding="utf-8")
+    print("wrote stress4.jsonl", len(rows4))

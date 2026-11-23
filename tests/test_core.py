@@ -222,3 +222,35 @@ def test_stress_sets_hold_up():
         assert r["genuine_false_scam_rate"] == 0.0, name                          # a real message is never called 'scam'
     live = [analyze(json.loads(l)["text"])["verdict"] for l in (ROOT / "model" / "data" / "stress2.jsonl").read_text(encoding="utf-8").splitlines()]
     assert live.count("scam") == rep["stress2"]["scam_called_scam"] + rep["stress2"]["genuine_called_scam"]
+
+
+def test_stress_sets_3_and_4_hold_up():
+    rep = json.loads((ROOT / "results" / "stress_report.json").read_text(encoding="utf-8"))
+    for name in ("stress3", "stress4"):
+        r = rep[name]
+        assert r["scam_called_genuine"] == 0, name              # a scam is never waved through as genuine
+        assert r["genuine_called_scam"] == 0, name
+        assert r["scam_flagged_rate"] >= 0.95, (name, r["scam_flagged_rate"])
+
+
+def test_rate_limits_survive_in_the_database(tmp_path):
+    a = Store(tmp_path / "r.db")
+    assert [a.hit("k", 3, 60) for _ in range(5)] == [True, True, True, False, False]
+    assert a.hit("other", 3, 60)                                  # a different key has its own count
+    b = Store(tmp_path / "r.db")                                   # a restarted / second process sees the same count
+    assert b.hit("k", 3, 60) is False
+
+
+def test_public_endpoint_is_rate_limited_and_body_capped(server):
+    codes = [call(server, "/api/public/analyze", {"text": "Your KYC is blocked, click bit.ly/x"})[0] for _ in range(25)]
+    assert 429 in codes and codes[0] == 200
+    big = call(server, "/api/auth/login", {"email": "a@b.co", "password": "x" * 100_000})
+    assert big[0] in (400, 429)                                    # oversize body is cut off, never processed
+
+
+def test_install_and_share_target_files(server):
+    for path, ctype in (("/manifest.webmanifest", "manifest"), ("/sw.js", "javascript"), ("/icon-192.png", "png"), ("/icon-512.png", "png"), ("/share", "html")):
+        with urllib.request.urlopen(server + path) as r:
+            assert r.status == 200 and ctype in r.headers["Content-Type"], path
+    with urllib.request.urlopen(server + "/manifest.webmanifest") as r:
+        assert json.loads(r.read())["share_target"]["action"] == "/share"

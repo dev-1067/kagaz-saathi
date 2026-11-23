@@ -51,6 +51,13 @@ class DynamoStore:
             kw["Limit"] = limit
         return [_py(i) for i in self.t.query(**kw)["Items"]]
 
+    # ---- abuse limits (atomic counter per window; DynamoDB TTL removes old windows)
+    def hit(self, key, limit, per):
+        now = int(time.time())
+        r = self.t.update_item(Key={"pk": f"RATE#{key}|{now // per}", "sk": "RATE"}, UpdateExpression="ADD n :one SET #t = :t",
+                               ExpressionAttributeNames={"#t": "ttl"}, ExpressionAttributeValues={":one": 1, ":t": now + per * 2 + 60}, ReturnValues="UPDATED_NEW")
+        return int(r["Attributes"]["n"]) <= limit
+
     # ---- accounts
     def create_user(self, name, email, password, home="", lang="en"):
         name, email, home = (name or "").strip(), (email or "").strip().lower(), (home or "").strip()

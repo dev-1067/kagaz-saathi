@@ -22,6 +22,7 @@ DEMOS = {"parent": ("Savitri Devi", "parent@kagaz.demo", "Savitri's home"), "stu
          "family": ("Neha Sharma", "family@kagaz.demo", "Sharma family")}
 
 SCHEMA = """
+CREATE TABLE IF NOT EXISTS rate (k TEXT PRIMARY KEY, n INTEGER NOT NULL, exp REAL NOT NULL);
 CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, email TEXT NOT NULL UNIQUE COLLATE NOCASE,
   home TEXT NOT NULL DEFAULT '', lang TEXT NOT NULL DEFAULT 'en', pw_hash TEXT NOT NULL, salt TEXT NOT NULL, created_at REAL NOT NULL);
 CREATE TABLE IF NOT EXISTS sessions (token TEXT PRIMARY KEY, user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
@@ -89,6 +90,18 @@ class Store:
         with LOCK:
             self.c.executescript(SCHEMA)
             self.c.commit()
+
+    # ---- abuse limits (shared by every server process, survives restarts)
+    def hit(self, key, limit, per):
+        """Count one hit for `key` in the current `per`-second window. True if still within `limit`."""
+        now = time.time()
+        k = f"{key}|{int(now // per)}"
+        with LOCK:
+            self.c.execute("DELETE FROM rate WHERE exp < ?", (now,))
+            self.c.execute("INSERT INTO rate (k, n, exp) VALUES (?, 1, ?) ON CONFLICT(k) DO UPDATE SET n = n + 1", (k, now + per * 2))
+            n = self.c.execute("SELECT n FROM rate WHERE k = ?", (k,)).fetchone()["n"]
+            self.c.commit()
+        return n <= limit
 
     # ---- accounts
     def create_user(self, name, email, password, home="", lang="en"):
