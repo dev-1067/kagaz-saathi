@@ -1,7 +1,7 @@
 # Deploy Kagaz Saathi to AWS (about 20 minutes, Free Tier)
 
-Everything below is done by **you** in your own account: AWS needs your identity, phone and card to open an account,
-and nobody else should do that for you. The code, template and tests are ready; nothing here was deployed by Claude.
+Everything below is done by **you** in your own account: AWS needs your identity, phone and card to open an account.
+The code, template and tests are ready.
 
 ## 0. One-time setup (required by the hackathon)
 1. Create your **AWS Builder Center** profile at builder.aws.com and claim your alias.
