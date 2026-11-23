@@ -133,7 +133,7 @@ HELPLINES = [
 
 OFFICIAL_SUFFIXES = (".gov.in", ".nic.in", ".sbi.co.in", ".onlinesbi.sbi", ".hdfcbank.com", ".icicibank.com", ".axisbank.com", ".pnbindia.in",
                      ".bankofbaroda.in", ".kotak.com", ".npci.org.in", ".uidai.gov.in", ".incometax.gov.in", ".indiapost.gov.in", ".amazon.in",
-                     ".flipkart.com", ".irctc.co.in", ".paytm.com", ".phonepe.com", ".google.com", ".sancharsaathi.gov.in", ".cybercrime.gov.in")
+                     ".flipkart.com", ".irctc.co.in", ".paytm.com", ".phonepe.com", ".licindia.in", ".rbi.org.in", ".airtel.in", ".jio.com", ".sancharsaathi.gov.in", ".cybercrime.gov.in")
 BRAND_WORDS = ("sbi", "hdfc", "icici", "axis", "pnb", "kotak", "paytm", "phonepe", "aadhaar", "aadhar", "uidai", "incometax", "irctc", "bank", "kyc",
                "gov", "india", "customs", "refund", "bijli", "electric", "bescom", "msedcl")
 SHORTENERS = ("bit.ly", "tinyurl.com", "is.gd", "t.co", "rb.gy", "cutt.ly", "goo.gl", "ow.ly", "shorturl.at", "tiny.cc")

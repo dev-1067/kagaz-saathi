@@ -54,11 +54,19 @@ TOO_GOOD = ("won", "winner", "lottery", "lucky draw", "congratulations", "prize"
 REQUEST_VERBS = ("share", "send", "tell", "give", "enter", "read out", "provide", "submit", "forward", "confirm", "verify", "type ", "reply", "bata", "batao",
                  "bhej", "de do", "dijiye", "बताइए", "बताओ", "बताएं", "भेजें", "भेजिए", "दीजिए", "डालें", "दर्ज", "शेयर", "update your", "upload")
 SECRET_PHRASES = ("the code", "code you", "code we", "code that", "code just", "code sent", "the otp", "your otp", "your pin", "your cvv")
-PAY_FIRST = re.compile(r"(?i)\b(upi|pay|send|transfer)\b[^.\n]{0,40}\bfirst\b|\bfirst\b[^.\n]{0,40}\b(upi|pay|send|transfer)\b|\bin advance\b|\badvance (payment|amount)\b|\b(need|require)s?\b[^.\n]{0,30}(rs\.?|inr|₹)\s?[\d,]+[^.\n]{0,20}\b(upi|more)\b")
+PAY_FIRST = re.compile(r"(?i)\b(upi|pay|send|transfer)\b[^.\n]{0,40}\bfirst\b(?=\s*(?:[.,;!]|$|then\b|and\b|before\b))|\bfirst (pay|send|transfer)\b|\b(pay|send|transfer|deposit)\b[^.\n]{0,40}\bin advance\b|\badvance (payment|amount)\b|\b(need|require)s?\b[^.\n]{0,30}(rs\.?|inr|₹)\s?[\d,]+[^.\n]{0,20}\b(upi|more)\b")
 OFFICIAL_CHANNEL = re.compile(r"(?i)(official (app|website|portal|store|helpline)|visit (the |your |a )?(nearest )?[a-z ]{0,20}(store|branch|office|centre|center|seva kendra)|cannot be (done|completed) (over|through|by) (a )?(link|call|phone)|never ask)")
 
 
 MONEY_ASK = re.compile(r"(?i)\b(send|sent|transfer|pay|deposit|advance|bhej\s?do|bhejo|bhejiye|bhej\s?dijiye)\b|जमा|भेजें|भेज\s?दो|भेजिए")
+
+
+NEVER_ASK = re.compile(r"(?i)\b(never|not|doesn't|don't|won't)\s+(ever\s+)?(asks?|request|call)(ed|s|ing)?\b[^.\n]{0,40}\b(otp|pin|cvv|password|card|details|upi)|(otp|पिन|pin|ओटीपी|cvv)[^.।\n]{0,40}(नहीं|नाही)\s*(मांगत|मागत)|(नहीं|नाही)\s*(मांगत|मागत)")
+
+
+def _warns(text):
+    """True when the message itself warns you not to share a secret."""
+    return _has(text, DONT_SHARE) or bool(NEVER_ASK.search(text))
 
 
 def _money_request(text):
@@ -111,7 +119,37 @@ def judge_link(url):
     return "unknown"
 
 
+SENTENCE = re.compile(r"(?<=[.!?।])\s+|\n+")
+
+
+def without_reassurance(text):
+    """The message minus sentences that only sound safe ("do not share this OTP", "visit our official website")."""
+    keep = [x for x in SENTENCE.split(text) if x.strip() and not _warns(x) and not OFFICIAL_CHANNEL.search(x)]
+    return " ".join(keep).strip()
+
+
 def analyze(text, lang="en"):
+    """Full verdict. A scammer can paste a safe-sounding sentence into any message, so such sentences may never turn a
+    risky message into a 'genuine' one: the rest of the message is judged on its own as well."""
+    res = _analyze(text, lang)
+    if res["verdict"] == "genuine" and (set(res["signals"]) & {"no_share", "official_channel"}):
+        rest = without_reassurance((text or "").strip()[:4000])
+        if rest:
+            other = _analyze(rest, lang)
+            if other["verdict"] != "genuine":
+                for k in ("kind", "kind_label", "explanation", "confidence"):
+                    res[k] = other[k]
+                bad = [(g, r) for g, r in zip(other["signals"], other["reasons"]) if g not in ("no_share", "official_channel", "official_link")]
+                res["signals"] = [g for g, _ in bad] + [g for g in res["signals"] if g not in dict(bad)]
+                lg = res["lang"]
+                res["reasons"] = [C.SIGNALS[g][lg] for g in res["signals"]]
+                res["verdict"], res["verdict_label"] = "suspicious", C.VERDICT["suspicious"][lg]
+                res["risk"] = min(79, max(45, other["risk"] - 20))
+                res["steps"], res["helplines"] = C.STEPS_SUSPICIOUS[lg], C.HELPLINES
+    return res
+
+
+def _analyze(text, lang="en"):
     lang = lang if lang in ("en", "hi", "mr") else "en"
     text = (text or "").strip()[:4000]
     if not text:
@@ -123,7 +161,7 @@ def analyze(text, lang="en"):
 
     links = [(u, judge_link(u)) for u in facts["urls"]]
     sig = {}
-    dont = _has(text, DONT_SHARE)
+    dont = _warns(text)
     if _has(text, ASK_SECRET) and not dont and (_has(text, REQUEST_VERBS) or _has(text, SECRET_PHRASES)):
         sig["asks_secret"] = True
     if PAY_FIRST.search(text) and not dont:

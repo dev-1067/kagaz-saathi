@@ -52,7 +52,7 @@ def handler(event, context=None):
     lines = [f"{method} {path} HTTP/1.1", f"Content-Length: {len(body)}"] + [f"{k}: {v}" for k, v in headers.items() if k not in ("content-length", "host", "connection")]
     raw = ("\r\n".join(lines) + "\r\n\r\n").encode("utf-8") + body
     sock = _Sock(raw)
-    S.H(sock, (headers.get("x-forwarded-for", "0.0.0.0").split(",")[0].strip(), 0), _Srv())
+    S.H(sock, (http.get("sourceIp") or "0.0.0.0", 0), _Srv())
     resp = HTTPResponse(_Resp(sock.out.getvalue()))
     resp.begin()
     data = resp.read()
