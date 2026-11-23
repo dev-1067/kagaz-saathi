@@ -6,3 +6,4 @@ _ref/
 results/*.log
 model/data/train.jsonl
 build/
+*.mp4
